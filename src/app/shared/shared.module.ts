@@ -12,6 +12,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { AutocompleteModule } from './components/autocomplete/autocomplete.module';
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 //COMPONENTS
 import { FooterComponent } from "./footer/footer.component";
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -58,7 +60,8 @@ import { TopMenuAnchorToggleDirective } from './directives/topmenu-anchor-toggle
         PerfectScrollbarModule,
         ClickOutsideModule,
         AutocompleteModule,
-        PipeModule
+        PipeModule,
+        NgSelectModule
     ],
     declarations: [
         FooterComponent,

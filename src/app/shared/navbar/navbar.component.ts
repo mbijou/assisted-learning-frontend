@@ -40,6 +40,16 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output()
   seachTextEmpty = new EventEmitter<boolean>();
 
+
+  learningGroups = [
+    { id: 1, name: 'School' },
+    { id: 2, name: 'Friends' },
+    { id: 3, name: 'Teachers', disabled: true },
+    { id: 4, name: 'Bad Boys!' },
+  ];
+
+  selectedLearningGroup = "School";
+
   listItems = [];
   control = new FormControl();
 
