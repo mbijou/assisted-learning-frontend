@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from "ng-chartist";
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
@@ -23,14 +23,18 @@ export interface Chart {
   styleUrls: ['./dashboard1.component.scss']
 })
 
-export class Dashboard1Component {
+export class Dashboard1Component implements OnInit{
+    ngOnInit(): void {
+
+    }
 
   categories = [
-      {id: 1, name: 'Mathematics'},
-      {id: 2, name: 'English'}
+      {id: 1, name: 'All categories'},
+      {id: 2, name: 'Mathematics'},
+      {id: 3, name: 'English'}
   ];
 
-  selectedCategory = "Mathematics";
+  selectedCategory = "All categories";
 
 
   // Line area chart configuration Starts
