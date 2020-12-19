@@ -1,27 +1,47 @@
-
 <!--Line with Area Chart 1 Starts-->
 <div class="row">
   <div class="col-10">
     <div class="card">
 
       <div class="card-header">
-        <h4 class="card-title">Flashcards</h4>
+        <div class="row no-gutters">
+          <div class="col-4">
+            <h4 class="card-title">
+              Flashcards
+            </h4>
+          </div>
+          <div class="col-5"></div>
+          <div class="col-3">
+
+            <!-- BEGIN CATEGORY CHOICE -->
+            <ng-select [items]="categories" bindLabel="name" placeholder="Select a category" [(ngModel)]="selectedCategory">
+            </ng-select>
+            <!-- END CATEGORY CHOICE -->
+
+          </div>
+        </div>
       </div>
       <div class="card-content">
         <div class="card-body">
           <div class="row no-gutters">
+
             <!--BEGIN KARTEIKARTE-->
-            <div class="card col-3 bg-danger white" style="min-height:180px;">
+            <div class="card col-md-3 col-sm-1 bg-danger white" style="min-height:180px;margin-right: 8.3333333333%;">
               <div class="card-content">
                 <div class="card-header">
-                  <div class="card-title">How bad is corona virus?</div>
+                  <div class="card-title">
+                    <a href="/" class="text-white">
+                      How bad is corona virus?
+                    </a>
+                  </div>
                 </div>
                 <div class="card-body"></div>
               </div>
             </div>
             <!--END KARTEIKARTE-->
+
             <!--BEGIN KARTEIKARTE-->
-            <div class="card col-3 bg-warning white" style="min-height:180px;margin-left: 8.3333333333%;">
+            <div class="card col-md-3 col-sm-1 col-xs-1 bg-warning white" style="min-height:180px;margin-right: 8.3333333333%;">
               <div class="card-content">
                 <div class="card-header">
                   <div class="card-title">Do you think banana is harmful?</div>
@@ -30,8 +50,9 @@
               </div>
             </div>
             <!--END KARTEIKARTE-->
+
             <!--BEGIN KARTEIKARTE-->
-            <div class="card col-3 bg-success white" style="min-height:180px;margin-left: 8.3333333333%;">
+            <div class="card col-md-3 col-sm-1 col-xs-1 bg-success white" style="min-height:180px;margin-right: 8.3333333333%;">
               <div class="card-content">
                 <div class="card-header">
                   <div class="card-title">You sure about that?</div>
@@ -40,8 +61,9 @@
               </div>
             </div>
             <!--END KARTEIKARTE-->
+
             <!--BEGIN KARTEIKARTE-->
-            <div class="card col-3 bg-success white" style="min-height:180px;">
+            <div class="card col-md-3 col-sm-1 col-xs-1 bg-success white" style="min-height:180px;margin-right: 8.3333333333%;">
               <div class="card-content">
                 <div class="card-header">
                   <div class="card-title">Does sugar cause disease?</div>
@@ -50,8 +72,9 @@
               </div>
             </div>
             <!--END KARTEIKARTE-->
+
             <!--BEGIN KARTEIKARTE-->
-            <div class="card col-3 bg-success white" style="min-height:180px;margin-left: 8.3333333333%;">
+            <div class="card col-md-3 col-sm-1 col-xs-1 bg-success white" style="min-height:180px;margin-right: 8.3333333333%;">
               <div class="card-content">
                 <div class="card-header">
                   <div class="card-title">Are you a good boy?</div>
@@ -60,8 +83,9 @@
               </div>
             </div>
             <!--END KARTEIKARTE-->
+
             <!--BEGIN KARTEIKARTE-->
-            <div class="card col-3 bg-success white" style="min-height:180px;margin-left: 8.3333333333%;">
+            <div class="card col-md-3 col-sm-1 col-xs-1 bg-success white" style="min-height:180px;margin-right: 8.3333333333%;">
               <div class="card-content">
                 <div class="card-header">
                   <div class="card-title">Which one is a bad boy?</div>

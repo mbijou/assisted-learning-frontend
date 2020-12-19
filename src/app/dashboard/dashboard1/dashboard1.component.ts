@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from "ng-chartist";
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+import {LISTITEMS} from '../../shared/data/template-search';
 
 declare var require: any;
 
@@ -23,6 +24,14 @@ export interface Chart {
 })
 
 export class Dashboard1Component {
+
+  categories = [
+      {id: 1, name: 'Mathematics'},
+      {id: 2, name: 'English'}
+  ];
+
+  selectedCategory = "Mathematics";
+
 
   // Line area chart configuration Starts
   lineArea: Chart = {
