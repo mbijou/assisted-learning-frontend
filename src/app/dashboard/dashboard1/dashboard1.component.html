@@ -129,13 +129,17 @@
   </div>
   <div class="col-xl-2 col-lg-12 col-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Actions</h4>
-      </div>
       <div class="card-content">
-        <div class="card-body">
-          <button class="font-medium-2 text-center my-2 btn btn-success"><i class="icon-plus"></i> Flashcard</button>
+        <div class="card-body text-center">
           <button class="font-medium-2 text-center my-2 btn btn-primary"><i class="icon-plus"></i> Category</button>
+          <button class="font-medium-2 text-center my-2 btn btn-success"><i class="icon-plus"></i> Flashcard</button>
+
+          <div style="padding-top: 0.75rem">
+            <h4 class="card-title text-left">Learning Group</h4>
+            <ng-select [items]="learningGroups" bindValue="name" bindLabel="name" placeholder="Select Learning Group" [(ngModel)]="selectedLearningGroup" style="min-width:150px;">
+            </ng-select>
+            <p class="text-center" style="padding-top: 10px;">{{selectedLearningGroup}}&nbsp;&nbsp;<a href="/" class="text-white"><i class="icon-pencil"></i></a></p>
+          </div>
         </div>
       </div>
     </div>

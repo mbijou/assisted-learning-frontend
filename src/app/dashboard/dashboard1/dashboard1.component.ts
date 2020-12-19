@@ -36,6 +36,15 @@ export class Dashboard1Component implements OnInit{
 
   selectedCategory = "All categories";
 
+  learningGroups = [
+    { id: 1, name: 'School' },
+    { id: 2, name: 'Friends' },
+    { id: 3, name: 'Teachers', disabled: true },
+    { id: 4, name: 'Bad Boys!' },
+  ];
+
+  selectedLearningGroup = "School";
+
 
   // Line area chart configuration Starts
   lineArea: Chart = {
