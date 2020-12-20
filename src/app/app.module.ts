@@ -31,6 +31,7 @@ import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
 
+
 var firebaseConfig = {
   apiKey: "AIzaSyC9XfnIpwNoSv7cyAsoccFQ5EYPd7lZXrk", //YOUR_API_KEY
   authDomain: "apex-angular.firebaseapp.com", //YOUR_AUTH_DOMAIN
@@ -75,7 +76,7 @@ export function createTranslateLoader(http: HttpClient) {
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyCERobClkCv1U4mDijGm1FShKva_nxsGJY"
     }),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
   ],
   providers: [
     AuthService,

@@ -66,5 +66,10 @@ export const Full_ROUTES: Routes = [
   {
     path: 'taskboard-ngrx',
     loadChildren: () => import('../../taskboard-ngrx/taskboard-ngrx.module').then(m => m.TaskboardNGRXModule)
-  }
+  },
+  {
+    path: 'flashcards',
+    loadChildren: () => import('../../flash-card/flash-card.module').then(m => m.FlashCardModule)
+  },
+
 ];

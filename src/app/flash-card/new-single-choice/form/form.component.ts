@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 
 const now = new Date();
@@ -12,24 +12,23 @@ const I18N_VALUES = {
 
 // Range datepicker Start
 const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
-  one && two && two.year === one.year && two.month === one.month && two.day === one.day;
+    one && two && two.year === one.year && two.month === one.month && two.day === one.day;
 
 const before = (one: NgbDateStruct, two: NgbDateStruct) =>
-  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-    ? false : one.day < two.day : one.month < two.month : one.year < two.year;
+    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+        ? false : one.day < two.day : one.month < two.month : one.year < two.year;
 
 const after = (one: NgbDateStruct, two: NgbDateStruct) =>
-  !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-    ? false : one.day > two.day : one.month > two.month : one.year > two.year;
+    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
+        ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 // Range datepicker Ends
-
 @Component({
-  selector: 'app-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['/assets/sass/libs/datepicker.scss'],
+  selector: 'new-single-choice-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss', '/assets/sass/libs/datepicker.scss',],
   encapsulation: ViewEncapsulation.None
 })
-export class DatepickerComponent implements OnInit {
+export class FormComponent implements OnInit {
   // Variable declaration
   d: any;
   d2: any;
@@ -44,7 +43,6 @@ export class DatepickerComponent implements OnInit {
   customModel: NgbDateStruct;
 
   configModal;    // Global configuration of datepickers
-
 
   // Range datepicker start
   hoveredDate: NgbDateStruct;
@@ -87,7 +85,9 @@ export class DatepickerComponent implements OnInit {
   }
   // Custom Day View Ends
 
-  ngOnInit() {
-    this.selectToday();
+  constructor() { }
+
+  ngOnInit(): void {
   }
+
 }
