@@ -8,45 +8,70 @@
                 <div class="card-content">
                     <div class="card-body">
                         <p>You can use this form to create a new single choice flash card.</p>
-                        <form>
+                        <form [formGroup]="singleChoiceForm" (ngSubmit)="onSubmit()">
                             <div class="form-group">
                                 <label for="question">Question</label>
-                                <textarea id="question" rows="4" class="form-control" name="question"></textarea>
+                                <textarea id="question" formControlName="question" rows="4" class="form-control"
+                                          name="question" required
+                                          [ngClass]="{ 'is-invalid': singleChoiceFormSubmitted && sc.question.invalid,
+                                                       'is-valid': singleChoiceFormSubmitted && !sc.question.invalid }"
+                                ></textarea>
+                                <div *ngIf="singleChoiceFormSubmitted && (sc.question.invalid || sc.question.errors?.required)"
+                                     class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                                    required</div>
                             </div>
                             <div class="form-group">
-                                <label>Answer</label>
+                                <!--<label>Solution</label>-->
                                 <div class="input-group">
                                     <div class="radio d-inline-block mr-2 mb-1">
-                                        <input type="radio" id="answer1" name="answer">
-                                        <label for="answer1">Yes</label>
+                                        <input type="radio" id="solution1" name="solution" formControlName="solution"
+                                        value="true">
+                                        <label for="solution1">True</label>
                                     </div>
                                     <div class="radio d-inline-block">
-                                        <input type="radio" id="answer2" name="answer">
-                                        <label for="answer2">No</label>
+                                        <input type="radio" id="solution2" name="solution" formControlName="solution"
+                                        value="false">
+                                        <label for="solution2">False</label>
                                     </div>
                                 </div>
+                                <div *ngIf="singleChoiceFormSubmitted && (sc.solution.invalid || sc.solution.errors?.required)"
+                                     class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                                    required</div>
                             </div>
                             <div class="form-group">
                                 <label for="deadline">Deadline</label>
                                 <div class="input-group">
                                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="deadline" [(ngModel)]="popupModel" ngbDatepicker
-                                           #d2="ngbDatepicker"/>
+                                           #d="ngbDatepicker" formControlName="deadline"
+                                           [ngClass]="{'is-invalid': singleChoiceFormSubmitted && sc.deadline.invalid,
+                                                       'is-valid': singleChoiceFormSubmitted && !sc.deadline.invalid }"/>
                                     <div class="input-group-append">
-                                        <div class="input-group-text" (click)="d2.toggle()">
+                                        <div class="input-group-text" (click)="d.toggle()">
                                             <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                         </div>
                                     </div>
+                                </div>
+                                <div *ngIf="singleChoiceFormSubmitted && (sc.deadline.invalid || sc.deadline.errors?.required)"
+                                     class="help-block mt-1 text-danger">
+                                    <i class="ft-alert-circle align-middle"></i> This is required
                                 </div>
                             </div>
                             <br/>
 
                             <div class="form-group">
-                                <label for="interval">Interval in hours</label>
-                                <input type="number" id="interval" class="form-control" name="interval"/>
+                                <label for="workload">Workload (per day)</label>
+                                <input type="number" id="workload" class="form-control" name="workload"
+                                       formControlName="workload"
+                                       [ngClass]="{'is-invalid': singleChoiceFormSubmitted && sc.workload.invalid,
+                                                       'is-valid': singleChoiceFormSubmitted && !sc.workload.invalid }"
+                                />
+                                <div *ngIf="singleChoiceFormSubmitted && (sc.workload.invalid || sc.workload.errors?.required)"
+                                     class="help-block mt-1 text-danger">
+                                    <i class="ft-alert-circle align-middle"></i> This is required
+                                </div>
                             </div>
 
-                            <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
-                            <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+                            <button type="submit" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
                         </form>
                     </div>
                 </div>
