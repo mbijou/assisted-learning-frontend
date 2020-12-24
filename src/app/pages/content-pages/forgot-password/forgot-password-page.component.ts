@@ -14,7 +14,7 @@ export class ForgotPasswordPageComponent {
     constructor(private router: Router,
         private route: ActivatedRoute) { }
 
-    // On submit click, reset form fields
+    // On submit click, reset new-single-choice-new-multiple-choice-form fields
     onSubmit() {
         this.forogtPasswordForm.reset();
     }

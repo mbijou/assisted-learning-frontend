@@ -2,6 +2,8 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import { NewSingleChoiceService } from '../new-single-choice.service';
+
 
 const now = new Date();
 
@@ -25,12 +27,12 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
         ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 // Range datepicker Ends
 @Component({
-  selector: 'new-multiple-choice-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss', '/assets/sass/libs/datepicker.scss',],
+  selector: 'new-single-choice-form',
+  templateUrl: './new-single-choice-form.component.html',
+  styleUrls: ['./new-single-choice-form.component.scss', '/assets/sass/libs/datepicker.scss',],
   encapsulation: ViewEncapsulation.None
 })
-export class FormComponent implements OnInit {
+export class NewSingleChoiceFormComponent implements OnInit {
   // Variable declaration
   d: any;
   model: NgbDateStruct;
@@ -89,25 +91,19 @@ export class FormComponent implements OnInit {
 
   // FORM Starts
 
-  multipleChoiceFormSubmitted = false;
+  singleChoiceFormSubmitted = false;
 
-  multipleChoiceForm = new FormGroup({
+  singleChoiceForm = new FormGroup({
     question: new FormControl(null, [Validators.required]),
-    answer1: new FormControl(null, [Validators.required]),
-    solution1: new FormControl(null, [Validators.required]),
-    answer2: new FormControl(null, [Validators.required]),
-    solution2: new FormControl(null, [Validators.required]),
-    answer3: new FormControl(null, []),
-    solution3: new FormControl(null, []),
-    answer4: new FormControl(null, []),
-    solution4: new FormControl(null, []),
+    solution: new FormControl(null, [Validators.required]),
     deadline: new FormControl(null, [Validators.required]),
     workload: new FormControl(null, [Validators.required]),
   });
 
   // FORM Ends
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public newSingleChoiceService: NewSingleChoiceService) {
+  }
 
 
 
@@ -115,18 +111,22 @@ export class FormComponent implements OnInit {
   }
 
   get sc() {
-    return this.multipleChoiceForm.controls;
+    return this.singleChoiceForm.controls;
   }
 
   onSubmit() {
-    this.multipleChoiceFormSubmitted = true;
-    console.warn("WAS BRUDER? ", this.multipleChoiceForm.invalid);
+    this.newSingleChoiceService.getNewSingleChoice().subscribe(data => {
+      console.warn("hey hey hey ora ora: ", data);
+    });
 
-    console.warn(this.multipleChoiceForm.controls.solution);
+    this.singleChoiceFormSubmitted = true;
+    console.warn("WAS BRUDER? ", this.singleChoiceForm.invalid);
 
-    console.warn(this.multipleChoiceForm.controls);
+    console.warn(this.singleChoiceForm.controls.solution);
 
-    if (this.multipleChoiceForm.invalid) {
+    console.warn(this.singleChoiceForm.controls);
+
+    if (this.singleChoiceForm.invalid) {
       return;
     }
 

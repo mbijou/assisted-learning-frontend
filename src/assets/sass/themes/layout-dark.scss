@@ -922,7 +922,7 @@ pre {
 }
 
 //----------- Forms -----------
-// form control
+// new-single-choice-new-multiple-choice-form control
 .form-control {
   @include transparent-style() {
     border-color: $tl-border-color;
@@ -1013,7 +1013,7 @@ form {
     }
   }
 
-  // form-actions
+  // new-single-choice-new-multiple-choice-form-actions
   & .form-actions {
     @include transparent-style() {
       border-top-color: $tl-border-color;
@@ -1026,7 +1026,7 @@ form {
     }
   }
 
-  // form-section
+  // new-single-choice-new-multiple-choice-form-section
   .form-section {
     @include transparent-style() {
       border-bottom-color: $tl-border-color;

@@ -25,12 +25,12 @@ const after = (one: NgbDateStruct, two: NgbDateStruct) =>
         ? false : one.day > two.day : one.month > two.month : one.year > two.year;
 // Range datepicker Ends
 @Component({
-  selector: 'new-single-choice-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss', '/assets/sass/libs/datepicker.scss',],
+  selector: 'new-multiple-choice-form',
+  templateUrl: './new-multiple-choice-form.component.html',
+  styleUrls: ['./new-multiple-choice-form.component.scss', '/assets/sass/libs/datepicker.scss',],
   encapsulation: ViewEncapsulation.None
 })
-export class FormComponent implements OnInit {
+export class NewMultipleChoiceFormComponent implements OnInit {
   // Variable declaration
   d: any;
   model: NgbDateStruct;
@@ -89,11 +89,18 @@ export class FormComponent implements OnInit {
 
   // FORM Starts
 
-  singleChoiceFormSubmitted = false;
+  multipleChoiceFormSubmitted = false;
 
-  singleChoiceForm = new FormGroup({
+  multipleChoiceForm = new FormGroup({
     question: new FormControl(null, [Validators.required]),
-    solution: new FormControl(null, [Validators.required]),
+    answer1: new FormControl(null, [Validators.required]),
+    solution1: new FormControl(null, [Validators.required]),
+    answer2: new FormControl(null, [Validators.required]),
+    solution2: new FormControl(null, [Validators.required]),
+    answer3: new FormControl(null, []),
+    solution3: new FormControl(null, []),
+    answer4: new FormControl(null, []),
+    solution4: new FormControl(null, []),
     deadline: new FormControl(null, [Validators.required]),
     workload: new FormControl(null, [Validators.required]),
   });
@@ -102,24 +109,22 @@ export class FormComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-
-
   ngOnInit(): void {
   }
 
-  get sc() {
-    return this.singleChoiceForm.controls;
+  get mc() {
+    return this.multipleChoiceForm.controls;
   }
 
   onSubmit() {
-    this.singleChoiceFormSubmitted = true;
-    console.warn("WAS BRUDER? ", this.singleChoiceForm.invalid);
+    this.multipleChoiceFormSubmitted = true;
+    console.warn("WAS BRUDER? ", this.multipleChoiceForm.invalid);
 
-    console.warn(this.singleChoiceForm.controls.solution);
+    console.warn(this.multipleChoiceForm.controls.solution);
 
-    console.warn(this.singleChoiceForm.controls);
+    console.warn(this.multipleChoiceForm.controls);
 
-    if (this.singleChoiceForm.invalid) {
+    if (this.multipleChoiceForm.invalid) {
       return;
     }
 
