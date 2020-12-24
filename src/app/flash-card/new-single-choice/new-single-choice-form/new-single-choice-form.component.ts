@@ -3,6 +3,8 @@ import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-b
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NewSingleChoiceService } from '../new-single-choice.service';
+import { SingleChoiceInterface } from '../new-single-choice.service';
+import { DatePipe } from '@angular/common';
 
 
 const now = new Date();
@@ -102,7 +104,7 @@ export class NewSingleChoiceFormComponent implements OnInit {
 
   // FORM Ends
 
-  constructor(private router: Router, public newSingleChoiceService: NewSingleChoiceService) {
+  constructor(private router: Router, public newSingleChoiceService: NewSingleChoiceService, public datePipe: DatePipe) {
   }
 
 
@@ -115,7 +117,24 @@ export class NewSingleChoiceFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.newSingleChoiceService.getNewSingleChoice().subscribe(data => {
+
+    let deadline = this.singleChoiceForm.controls.deadline.value;
+    deadline = new Date(deadline.year, deadline.month, deadline.day);
+    deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
+
+    console.warn("babibu: " , deadline);
+
+    const data = {
+      "question": this.singleChoiceForm.controls.question.value,
+      "workload": this.singleChoiceForm.controls.workload.value,
+      "solution": this.singleChoiceForm.controls.solution.value,
+      "deadline": deadline
+    };
+
+    // TODO Interface abchecken: https://jasonwatmore.com/post/2019/11/21/angular-http-post-request-examples
+    // TODO Fehlermeldungen zu den Inputs mappen und Vorgang abbrechen, wenn etwas schief läuft
+
+    this.newSingleChoiceService.createNewSingleChoice(data).subscribe(data => {
       console.warn("hey hey hey ora ora: ", data);
     });
 
