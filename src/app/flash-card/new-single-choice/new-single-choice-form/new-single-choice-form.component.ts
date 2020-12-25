@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import { NewSingleChoiceService } from '../new-single-choice.service';
 import { SingleChoiceInterface } from '../new-single-choice.service';
 import { DatePipe } from '@angular/common';
+import {setProperty} from 'swiper/angular/angular/src/utils/utils';
 
 
 const now = new Date();
@@ -100,17 +101,26 @@ export class NewSingleChoiceFormComponent implements OnInit {
     solution: new FormControl(null, [Validators.required]),
     deadline: new FormControl(null, [Validators.required]),
     workload: new FormControl(null, [Validators.required]),
-  });
+
+  }
+  );
 
   // FORM Ends
+
+  singleChoiceFormErrors = {
+    question: null,
+    solution: null,
+    deadline: null,
+    workload: null
+  };
+
 
   constructor(private router: Router, public newSingleChoiceService: NewSingleChoiceService, public datePipe: DatePipe) {
   }
 
-
-
   ngOnInit(): void {
   }
+
 
   get sc() {
     return this.singleChoiceForm.controls;
@@ -119,12 +129,17 @@ export class NewSingleChoiceFormComponent implements OnInit {
   onSubmit() {
 
     let deadline = this.singleChoiceForm.controls.deadline.value;
-    deadline = new Date(deadline.year, deadline.month, deadline.day);
-    deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
+
+    if(deadline){
+      deadline = new Date(deadline.year, deadline.month, deadline.day);
+      deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
+    }
 
     console.warn("babibu: " , deadline);
 
-    const data = {
+
+
+    const data: SingleChoiceInterface = {
       "question": this.singleChoiceForm.controls.question.value,
       "workload": this.singleChoiceForm.controls.workload.value,
       "solution": this.singleChoiceForm.controls.solution.value,
@@ -134,11 +149,36 @@ export class NewSingleChoiceFormComponent implements OnInit {
     // TODO Interface abchecken: https://jasonwatmore.com/post/2019/11/21/angular-http-post-request-examples
     // TODO Fehlermeldungen zu den Inputs mappen und Vorgang abbrechen, wenn etwas schief läuft
 
-    this.newSingleChoiceService.createNewSingleChoice(data).subscribe(data => {
-      console.warn("hey hey hey ora ora: ", data);
-    });
+    // flush
+    for(let control in this.singleChoiceForm.controls){
+      this.singleChoiceFormErrors[control] = null;
+    }
 
-    this.singleChoiceFormSubmitted = true;
+    this.newSingleChoiceService.createNewSingleChoice(data).subscribe(
+        data => {
+          this.singleChoiceFormSubmitted = true;
+          console.warn("hey hey hey ora ora: ", data);
+        },
+        errors => {
+          this.singleChoiceFormSubmitted = true;
+          // adding error messages to form controls
+          for(let key in errors["error"]){
+            if(errors["error"].hasOwnProperty(key)){
+              this.singleChoiceFormErrors[key] = errors["error"][key];
+            }
+          }
+
+          // Object.keys(errors["error"])
+          //     .forEach((key) => {
+          //       this.singleChoiceForm.controls[key]["errorMessages"] = errors["error"][key];
+          //       console.warn((key + ": " + errors["error"][key] + "\n"));
+          //       console.warn("PAPAPAPAPPA: ", this.singleChoiceForm.controls[key]);
+          //     }
+          // );
+        },
+    );
+
+
     console.warn("WAS BRUDER? ", this.singleChoiceForm.invalid);
 
     console.warn(this.singleChoiceForm.controls.solution);

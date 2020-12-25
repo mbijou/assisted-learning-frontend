@@ -13,12 +13,15 @@
                                 <label for="question">Question</label>
                                 <textarea id="question" formControlName="question" rows="4" class="form-control"
                                           name="question" required
-                                          [ngClass]="{ 'is-invalid': singleChoiceFormSubmitted && sc.question.invalid,
-                                                       'is-valid': singleChoiceFormSubmitted && !sc.question.invalid }"
+                                          [ngClass]="{ 'is-invalid': singleChoiceFormSubmitted && singleChoiceFormErrors.question,
+                                                       'is-valid': singleChoiceFormSubmitted && !singleChoiceFormErrors.question }"
                                 ></textarea>
-                                <div *ngIf="singleChoiceFormSubmitted && (sc.question.invalid || sc.question.errors?.required)"
-                                     class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
-                                    required</div>
+                                <div *ngIf="singleChoiceFormSubmitted && singleChoiceFormErrors.question"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of singleChoiceFormErrors.question;">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <!--<label>Solution</label>-->
@@ -34,26 +37,31 @@
                                         <label for="solution2">False</label>
                                     </div>
                                 </div>
-                                <div *ngIf="singleChoiceFormSubmitted && (sc.solution.invalid || sc.solution.errors?.required)"
-                                     class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
-                                    required</div>
+                                <div *ngIf="singleChoiceFormSubmitted && (singleChoiceFormErrors.solution)"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of singleChoiceFormErrors.solution;">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="deadline">Deadline</label>
                                 <div class="input-group">
                                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="deadline" [(ngModel)]="popupModel" ngbDatepicker
                                            #d="ngbDatepicker" formControlName="deadline"
-                                           [ngClass]="{'is-invalid': singleChoiceFormSubmitted && sc.deadline.invalid,
-                                                       'is-valid': singleChoiceFormSubmitted && !sc.deadline.invalid }"/>
+                                           [ngClass]="{'is-invalid': singleChoiceFormSubmitted && singleChoiceFormErrors.deadline,
+                                                       'is-valid': singleChoiceFormSubmitted && !singleChoiceFormErrors.deadline }"/>
                                     <div class="input-group-append">
                                         <div class="input-group-text" (click)="d.toggle()">
                                             <i class="fa fa-calendar" style="cursor: pointer;"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <div *ngIf="singleChoiceFormSubmitted && (sc.deadline.invalid || sc.deadline.errors?.required)"
+                                <div *ngIf="singleChoiceFormSubmitted && (singleChoiceFormErrors.deadline)"
                                      class="help-block mt-1 text-danger">
-                                    <i class="ft-alert-circle align-middle"></i> This is required
+                                     <p *ngFor="let error_msg of singleChoiceFormErrors.workload;">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                     </p>
                                 </div>
                             </div>
                             <br/>
@@ -62,12 +70,14 @@
                                 <label for="workload">Workload (per day)</label>
                                 <input type="number" id="workload" class="form-control" name="workload"
                                        formControlName="workload"
-                                       [ngClass]="{'is-invalid': singleChoiceFormSubmitted && sc.workload.invalid,
-                                                       'is-valid': singleChoiceFormSubmitted && !sc.workload.invalid }"
+                                       [ngClass]="{'is-invalid': singleChoiceFormSubmitted && (singleChoiceFormErrors.workload),
+                                                       'is-valid': singleChoiceFormSubmitted && (!singleChoiceFormErrors.workload) }"
                                 />
-                                <div *ngIf="singleChoiceFormSubmitted && (sc.workload.invalid || sc.workload.errors?.required)"
+                                <div *ngIf="singleChoiceFormSubmitted && (singleChoiceFormErrors.workload)"
                                      class="help-block mt-1 text-danger">
-                                    <i class="ft-alert-circle align-middle"></i> This is required
+                                    <p *ngFor="let error_msg of singleChoiceFormErrors.workload;">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
                                 </div>
                             </div>
 

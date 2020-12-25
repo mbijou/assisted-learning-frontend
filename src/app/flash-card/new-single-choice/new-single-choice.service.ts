@@ -23,7 +23,7 @@ export class NewSingleChoiceService {
   }
 
   createNewSingleChoice(data){
-    return this.http.post("api/v1/single-choices/", data);
+    return this.http.post<SingleChoiceInterface>("api/v1/single-choices/", data);
   }
 
 }
