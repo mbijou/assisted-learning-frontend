@@ -49,31 +49,6 @@ export class NewSingleChoiceFormComponent implements OnInit {
 
   configModal;    // Global configuration of datepickers
 
-  // Range datepicker start
-  hoveredDate: NgbDateStruct;
-
-  fromDate: NgbDateStruct;
-  toDate: NgbDateStruct;
-
-  // Range datepicker starts
-
-  onDateChange(date: NgbDateStruct) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
-  }
-
-  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
-  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
-  isFrom = date => equals(date, this.fromDate);
-  isTo = date => equals(date, this.toDate);
-  // Range datepicker ends
-
 
   // Selects today's date
   selectToday() {
@@ -97,22 +72,15 @@ export class NewSingleChoiceFormComponent implements OnInit {
   singleChoiceFormSubmitted = false;
 
   singleChoiceForm = new FormGroup({
-    question: new FormControl(null, [Validators.required]),
-    solution: new FormControl(null, [Validators.required]),
-    deadline: new FormControl(null, [Validators.required]),
-    workload: new FormControl(null, [Validators.required]),
+    question: new FormControl(null,[Validators.required]),
+    solution: new FormControl(null,[Validators.required]),
+    deadline: new FormControl(null,[Validators.required]),
+    workload: new FormControl(null,[Validators.required]),
 
   }
   );
 
   // FORM Ends
-
-  singleChoiceFormErrors = {
-    question: null,
-    solution: null,
-    deadline: null,
-    workload: null
-  };
 
 
   constructor(private router: Router, public newSingleChoiceService: NewSingleChoiceService, public datePipe: DatePipe) {
@@ -149,41 +117,48 @@ export class NewSingleChoiceFormComponent implements OnInit {
     // TODO Interface abchecken: https://jasonwatmore.com/post/2019/11/21/angular-http-post-request-examples
     // TODO Fehlermeldungen zu den Inputs mappen und Vorgang abbrechen, wenn etwas schief läuft
 
-    // flush
-    for(let control in this.singleChoiceForm.controls){
-      this.singleChoiceFormErrors[control] = null;
-    }
 
     this.newSingleChoiceService.createNewSingleChoice(data).subscribe(
         data => {
+
           this.singleChoiceFormSubmitted = true;
           console.warn("hey hey hey ora ora: ", data);
+          this.router.navigate(['/']);
+
         },
         errors => {
-          this.singleChoiceFormSubmitted = true;
-          // adding error messages to form controls
-          for(let key in errors["error"]){
-            if(errors["error"].hasOwnProperty(key)){
-              this.singleChoiceFormErrors[key] = errors["error"][key];
-            }
-          }
 
-          // Object.keys(errors["error"])
-          //     .forEach((key) => {
-          //       this.singleChoiceForm.controls[key]["errorMessages"] = errors["error"][key];
-          //       console.warn((key + ": " + errors["error"][key] + "\n"));
-          //       console.warn("PAPAPAPAPPA: ", this.singleChoiceForm.controls[key]);
-          //     }
-          // );
+          this.singleChoiceFormSubmitted = true;
+
+          // adding error messages to form controls
+          // for(let key in errors["error"]){
+          //   if(errors["error"].hasOwnProperty(key)){
+          //
+          //     this.singleChoiceForm.controls[key].setErrors(
+          //         { serverErrors: errors["error"][key] }
+          //         );
+          //
+          //   }
+          // }
+
+          console.warn("Errors: ",errors);
+
+          Object.keys(errors["error"])
+              .forEach((key) => {
+                if(errors["error"].hasOwnProperty(key)){
+
+                  this.singleChoiceForm.controls[key].setErrors(
+                      { serverErrors: errors["error"][key] }
+                  );
+
+                }
+              }
+          );
         },
     );
 
 
-    console.warn("WAS BRUDER? ", this.singleChoiceForm.invalid);
-
-    console.warn(this.singleChoiceForm.controls.solution);
-
-    console.warn(this.singleChoiceForm.controls);
+    console.warn("Error question: ", this.singleChoiceForm.controls.question);
 
     if (this.singleChoiceForm.invalid) {
       return;
@@ -192,7 +167,6 @@ export class NewSingleChoiceFormComponent implements OnInit {
 
 
 
-    this.router.navigate(['/']);
   }
 
 
