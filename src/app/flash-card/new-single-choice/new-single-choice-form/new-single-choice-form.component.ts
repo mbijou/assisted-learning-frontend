@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
@@ -83,7 +83,11 @@ export class NewSingleChoiceFormComponent implements OnInit {
   // FORM Ends
 
 
-  constructor(private router: Router, public newSingleChoiceService: NewSingleChoiceService, public datePipe: DatePipe) {
+  constructor(
+      private router: Router,
+      private changeDetector: ChangeDetectorRef,
+      public newSingleChoiceService: NewSingleChoiceService,
+      public datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
@@ -106,16 +110,12 @@ export class NewSingleChoiceFormComponent implements OnInit {
     console.warn("babibu: " , deadline);
 
 
-
     const data: SingleChoiceInterface = {
       "question": this.singleChoiceForm.controls.question.value,
       "workload": this.singleChoiceForm.controls.workload.value,
       "solution": this.singleChoiceForm.controls.solution.value,
       "deadline": deadline
     };
-
-    // TODO Interface abchecken: https://jasonwatmore.com/post/2019/11/21/angular-http-post-request-examples
-    // TODO Fehlermeldungen zu den Inputs mappen und Vorgang abbrechen, wenn etwas schief läuft
 
 
     this.newSingleChoiceService.createNewSingleChoice(data).subscribe(
@@ -131,18 +131,19 @@ export class NewSingleChoiceFormComponent implements OnInit {
           this.singleChoiceFormSubmitted = true;
 
           // adding error messages to form controls
-          // for(let key in errors["error"]){
-          //   if(errors["error"].hasOwnProperty(key)){
-          //
-          //     this.singleChoiceForm.controls[key].setErrors(
-          //         { serverErrors: errors["error"][key] }
-          //         );
-          //
-          //   }
-          // }
+          for(let key in errors["error"]){
+            if(errors["error"].hasOwnProperty(key)){
+              this.singleChoiceForm.controls[key].setErrors(
+                  { serverErrors: errors["error"][key] }
+                  );
+            }
+          }
 
           console.warn("Errors: ",errors);
 
+          this.changeDetector.detectChanges();
+
+          /*
           Object.keys(errors["error"])
               .forEach((key) => {
                 if(errors["error"].hasOwnProperty(key)){
@@ -153,19 +154,9 @@ export class NewSingleChoiceFormComponent implements OnInit {
 
                 }
               }
-          );
+          );*/
         },
     );
-
-
-    console.warn("Error question: ", this.singleChoiceForm.controls.question);
-
-    if (this.singleChoiceForm.invalid) {
-      return;
-    }
-
-
-
 
   }
 
