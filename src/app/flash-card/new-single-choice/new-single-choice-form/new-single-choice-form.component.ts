@@ -17,18 +17,6 @@ const I18N_VALUES = {
   },
 };
 
-// Range datepicker Start
-const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
-    one && two && two.year === one.year && two.month === one.month && two.day === one.day;
-
-const before = (one: NgbDateStruct, two: NgbDateStruct) =>
-    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-        ? false : one.day < two.day : one.month < two.month : one.year < two.year;
-
-const after = (one: NgbDateStruct, two: NgbDateStruct) =>
-    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-        ? false : one.day > two.day : one.month > two.month : one.year > two.year;
-// Range datepicker Ends
 @Component({
   selector: 'new-single-choice-form',
   templateUrl: './new-single-choice-form.component.html',
@@ -93,22 +81,22 @@ export class NewSingleChoiceFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
   get sc() {
     return this.singleChoiceForm.controls;
   }
 
-  onSubmit() {
-
-    let deadline = this.singleChoiceForm.controls.deadline.value;
-
+  getFormattedDeadline(deadline){
     if(deadline){
       deadline = new Date(deadline.year, deadline.month, deadline.day);
       deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
     }
+    return deadline;
+  }
 
-    console.warn("babibu: " , deadline);
 
+  onSubmit() {
+
+    let deadline = this.getFormattedDeadline(this.singleChoiceForm.controls.deadline.value);
 
     const data: SingleChoiceInterface = {
       "question": this.singleChoiceForm.controls.question.value,
@@ -122,7 +110,6 @@ export class NewSingleChoiceFormComponent implements OnInit {
         data => {
 
           this.singleChoiceFormSubmitted = true;
-          console.warn("hey hey hey ora ora: ", data);
           this.router.navigate(['/']);
 
         },
@@ -139,7 +126,6 @@ export class NewSingleChoiceFormComponent implements OnInit {
             }
           }
 
-          console.warn("Errors: ",errors);
 
           this.changeDetector.detectChanges();
 

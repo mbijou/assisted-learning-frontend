@@ -1,7 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {NewMultipleChoiceService, SolutionInterface} from '../new-multiple-choice.service';
+import { MultipleChoiceInterface } from '../new-multiple-choice.service';
+import { DatePipe } from '@angular/common';
 
 const now = new Date();
 
@@ -12,18 +15,6 @@ const I18N_VALUES = {
   },
 };
 
-// Range datepicker Start
-const equals = (one: NgbDateStruct, two: NgbDateStruct) =>
-    one && two && two.year === one.year && two.month === one.month && two.day === one.day;
-
-const before = (one: NgbDateStruct, two: NgbDateStruct) =>
-    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-        ? false : one.day < two.day : one.month < two.month : one.year < two.year;
-
-const after = (one: NgbDateStruct, two: NgbDateStruct) =>
-    !one || !two ? false : one.year === two.year ? one.month === two.month ? one.day === two.day
-        ? false : one.day > two.day : one.month > two.month : one.year > two.year;
-// Range datepicker Ends
 @Component({
   selector: 'new-multiple-choice-form',
   templateUrl: './new-multiple-choice-form.component.html',
@@ -43,31 +34,6 @@ export class NewMultipleChoiceFormComponent implements OnInit {
   customModel: NgbDateStruct;
 
   configModal;    // Global configuration of datepickers
-
-  // Range datepicker start
-  hoveredDate: NgbDateStruct;
-
-  fromDate: NgbDateStruct;
-  toDate: NgbDateStruct;
-
-  // Range datepicker starts
-
-  onDateChange(date: NgbDateStruct) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && after(date, this.fromDate)) {
-      this.toDate = date;
-    } else {
-      this.toDate = null;
-      this.fromDate = date;
-    }
-  }
-
-  isHovered = date => this.fromDate && !this.toDate && this.hoveredDate && after(date, this.fromDate) && before(date, this.hoveredDate);
-  isInside = date => after(date, this.fromDate) && before(date, this.toDate);
-  isFrom = date => equals(date, this.fromDate);
-  isTo = date => equals(date, this.toDate);
-  // Range datepicker ends
 
 
   // Selects today's date
@@ -97,17 +63,24 @@ export class NewMultipleChoiceFormComponent implements OnInit {
     solution1: new FormControl(null, [Validators.required]),
     answer2: new FormControl(null, [Validators.required]),
     solution2: new FormControl(null, [Validators.required]),
-    answer3: new FormControl(null, []),
-    solution3: new FormControl(null, []),
-    answer4: new FormControl(null, []),
-    solution4: new FormControl(null, []),
+    answer3: new FormControl(null, [Validators.required]),
+    solution3: new FormControl(null, [Validators.required]),
+    answer4: new FormControl(null, [Validators.required]),
+    solution4: new FormControl(null, [Validators.required]),
     deadline: new FormControl(null, [Validators.required]),
     workload: new FormControl(null, [Validators.required]),
   });
 
   // FORM Ends
 
-  constructor(private router: Router) { }
+  constructor(
+      private router: Router,
+      private changeDetector: ChangeDetectorRef,
+      public newMultipleChoiceService: NewMultipleChoiceService,
+      public datePipe: DatePipe
+  ){
+
+  }
 
   ngOnInit(): void {
   }
@@ -116,13 +89,71 @@ export class NewMultipleChoiceFormComponent implements OnInit {
     return this.multipleChoiceForm.controls;
   }
 
+  getFormattedDeadline(deadline){
+    if(deadline){
+      deadline = new Date(deadline.year, deadline.month, deadline.day);
+      deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
+    }
+    return deadline;
+  }
+
+  getSolutionSetFromMultipleChoiceForm(){
+    let solutionSet: SolutionInterface[] = [
+      {
+        "answer": this.multipleChoiceForm.controls.answer1.value,
+        "solution": this.multipleChoiceForm.controls.solution1.value,
+
+      },
+      {
+        "answer": this.multipleChoiceForm.controls.answer2.value,
+        "solution": this.multipleChoiceForm.controls.solution2.value,
+
+      },
+      {
+        "answer": this.multipleChoiceForm.controls.answer3.value,
+        "solution": this.multipleChoiceForm.controls.solution3.value,
+
+      },
+      {
+        "answer": this.multipleChoiceForm.controls.answer4.value,
+        "solution": this.multipleChoiceForm.controls.solution4.value,
+
+      },
+    ]
+
+    return solutionSet;
+  }
   onSubmit() {
-    this.multipleChoiceFormSubmitted = true;
-    console.warn("WAS BRUDER? ", this.multipleChoiceForm.invalid);
 
-    console.warn(this.multipleChoiceForm.controls.solution);
+    let deadline = this.getFormattedDeadline(this.multipleChoiceForm.controls.deadline.value);
 
-    console.warn(this.multipleChoiceForm.controls);
+    let solutionSet = this.getSolutionSetFromMultipleChoiceForm();
+
+    const data: MultipleChoiceInterface = {
+      "question": this.multipleChoiceForm.controls.question.value,
+      "workload": this.multipleChoiceForm.controls.workload.value,
+      "deadline": deadline,
+
+      "solution_set": solutionSet,
+    };
+
+    this.newMultipleChoiceService.createNewMultipleChoice(data).subscribe(
+        data => {
+          this.multipleChoiceFormSubmitted = true;
+          this.router.navigate(['/']);
+
+        },
+        errors => {
+          this.multipleChoiceFormSubmitted = true;
+          /***************************************/
+          /* TODO ERROR HANDLING MULTIPLE CHOICE */
+          /**************************************/
+          this.changeDetector.detectChanges();
+        },
+    );
+
+
+
 
     if (this.multipleChoiceForm.invalid) {
       return;
