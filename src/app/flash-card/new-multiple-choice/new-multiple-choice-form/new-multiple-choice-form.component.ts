@@ -5,6 +5,8 @@ import {Router} from '@angular/router';
 import {NewMultipleChoiceService, SolutionInterface} from '../new-multiple-choice.service';
 import { MultipleChoiceInterface } from '../new-multiple-choice.service';
 import { DatePipe } from '@angular/common';
+import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
+import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 const now = new Date();
 
@@ -90,11 +92,33 @@ export class NewMultipleChoiceFormComponent implements OnInit {
   }
 
   getFormattedDeadline(deadline){
-    if(deadline){
+    if(deadline && deadline.day && deadline.month && deadline.year){
       deadline = new Date(deadline.year, deadline.month, deadline.day);
       deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
     }
     return deadline;
+  }
+
+  handleSolutionSetErrors(errors){
+    for(let index in errors["error"]["solution_set"]){
+      if(errors["error"]["solution_set"].hasOwnProperty(index)) {
+        let errorObject = errors["error"]["solution_set"][index];
+
+        if("answer" in errorObject){
+          let answerKey = "answer" + (parseInt(index)+1).toString();
+            this.multipleChoiceForm.controls[answerKey].setErrors(
+                {serverErrors: errorObject["answer"]}
+            );
+        }
+
+        if("solution" in errorObject){
+          let solutionKey = "solution" + (parseInt(index)+1).toString();
+            this.multipleChoiceForm.controls[solutionKey].setErrors(
+                {serverErrors: errorObject["solution"]}
+            );
+        }
+      }
+    }
   }
 
   getSolutionSetFromMultipleChoiceForm(){
@@ -145,9 +169,23 @@ export class NewMultipleChoiceFormComponent implements OnInit {
         },
         errors => {
           this.multipleChoiceFormSubmitted = true;
-          /***************************************/
-          /* TODO ERROR HANDLING MULTIPLE CHOICE */
-          /**************************************/
+
+          console.warn(errors);
+
+          // adding error messages to form controls
+          for(let key in errors["error"]){
+            if(key == "solution_set"){
+              continue;
+            }
+            if(errors["error"].hasOwnProperty(key)){
+              this.multipleChoiceForm.controls[key].setErrors(
+                  { serverErrors: errors["error"][key] }
+              );
+            }
+          }
+
+          this.handleSolutionSetErrors(errors);
+
           this.changeDetector.detectChanges();
         },
     );
