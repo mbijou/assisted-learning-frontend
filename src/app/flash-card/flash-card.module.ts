@@ -9,12 +9,16 @@ import { NewMultipleChoiceFormComponent } from './new-multiple-choice/new-multip
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
+import { EditSingleChoiceComponent } from './edit-single-choice/edit-single-choice.component';
+import { EditSingleChoiceFormComponent } from './edit-single-choice/edit-single-choice-form/edit-single-choice-form.component'
 
 
 @NgModule({
   declarations: [NewFlashCardComponent, NewSingleChoiceComponent, NewMultipleChoiceComponent, SingleChoiceFormComponent,
-    NewMultipleChoiceFormComponent],
+    NewMultipleChoiceFormComponent,
+    EditSingleChoiceComponent,
+    EditSingleChoiceFormComponent],
   imports: [
     CommonModule,
     FormsModule,

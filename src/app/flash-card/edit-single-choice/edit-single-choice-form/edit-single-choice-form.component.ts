@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import { NewSingleChoiceService } from '../new-single-choice.service';
-import { SingleChoiceInterface } from '../new-single-choice.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import { EditSingleChoiceService } from '../edit-single-choice.service';
+import { SingleChoiceInterface } from '../edit-single-choice.service';
 import { DatePipe } from '@angular/common';
 import {setProperty} from 'swiper/angular/angular/src/utils/utils';
 
@@ -17,13 +17,14 @@ const I18N_VALUES = {
 };
 
 @Component({
-  selector: 'new-single-choice-form',
-  templateUrl: './new-single-choice-form.component.html',
-  styleUrls: ['./new-single-choice-form.component.scss', '/assets/sass/libs/datepicker.scss',],
+  selector: 'edit-single-choice-form',
+  templateUrl: './edit-single-choice-form.component.html',
+  styleUrls: ['./edit-single-choice-form.component.scss', '/assets/sass/libs/datepicker.scss',],
   encapsulation: ViewEncapsulation.None
 })
 
-export class NewSingleChoiceFormComponent implements OnInit {
+export class EditSingleChoiceFormComponent implements OnInit {
+
   // Variable declaration
   d: any;
   model: NgbDateStruct;
@@ -60,25 +61,30 @@ export class NewSingleChoiceFormComponent implements OnInit {
   singleChoiceFormSubmitted = false;
 
   singleChoiceForm = new FormGroup({
-    question: new FormControl(null,[Validators.required]),
-    solution: new FormControl(null,[Validators.required]),
-    deadline: new FormControl(null,[Validators.required]),
-    workload: new FormControl(null,[Validators.required]),
+        question: new FormControl(null,[Validators.required]),
+        solution: new FormControl(null,[Validators.required]),
+        deadline: new FormControl(null,[Validators.required]),
+        workload: new FormControl(null,[Validators.required]),
 
-  }
+      }
   );
 
   // FORM Ends
 
+  id;
 
   constructor(
       private router: Router,
+      private activatedRoute: ActivatedRoute,
       private changeDetector: ChangeDetectorRef,
-      public newSingleChoiceService: NewSingleChoiceService,
+      public editSingleChoiceService: EditSingleChoiceService,
       public datePipe: DatePipe) {
   }
 
   ngOnInit(): void {
+
+    this.id = this.activatedRoute.snapshot.params["id"];
+
   }
 
   get sc() {
@@ -106,7 +112,7 @@ export class NewSingleChoiceFormComponent implements OnInit {
     };
 
 
-    this.newSingleChoiceService.createNewSingleChoice(data).subscribe(
+    this.editSingleChoiceService.updateSingleChoice(data, this.id).subscribe(
         data => {
 
           this.singleChoiceFormSubmitted = true;
@@ -122,7 +128,7 @@ export class NewSingleChoiceFormComponent implements OnInit {
             if(errors["error"].hasOwnProperty(key)){
               this.singleChoiceForm.controls[key].setErrors(
                   { serverErrors: errors["error"][key] }
-                  );
+              );
             }
           }
 
