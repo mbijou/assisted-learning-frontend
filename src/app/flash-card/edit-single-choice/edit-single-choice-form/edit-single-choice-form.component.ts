@@ -60,14 +60,7 @@ export class EditSingleChoiceFormComponent implements OnInit {
 
   singleChoiceFormSubmitted = false;
 
-  singleChoiceForm = new FormGroup({
-        question: new FormControl(null,[Validators.required]),
-        solution: new FormControl(null,[Validators.required]),
-        deadline: new FormControl(null,[Validators.required]),
-        workload: new FormControl(null,[Validators.required]),
-
-      }
-  );
+  singleChoiceForm;
 
   // FORM Ends
 
@@ -84,6 +77,22 @@ export class EditSingleChoiceFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.id = this.activatedRoute.snapshot.params["id"];
+
+    let response = this.editSingleChoiceService.getSingleChoice(this.id).subscribe(
+        data => {
+
+          // TODO SUBSCRIBE
+
+        },
+    );
+
+    this.singleChoiceForm = new FormGroup({
+          question: new FormControl(null,[Validators.required]),
+          solution: new FormControl(null,[Validators.required]),
+          deadline: new FormControl(null,[Validators.required]),
+          workload: new FormControl(null,[Validators.required]),
+        }
+    )
 
   }
 

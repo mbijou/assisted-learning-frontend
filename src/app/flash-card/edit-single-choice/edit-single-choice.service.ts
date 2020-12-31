@@ -10,6 +10,10 @@ export class EditSingleChoiceService {
 
   constructor(private http: HttpClient) { }
 
+  getSingleChoice(id){
+    return this.http.get<SingleChoiceInterface>("api/v1/single-choices/" + id + "/");
+  }
+
   updateSingleChoice(data, id){
     return this.http.put<SingleChoiceInterface>("api/v1/single-choices/" + id + "/", data);
   }
