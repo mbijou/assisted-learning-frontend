@@ -62,11 +62,12 @@ export class EditSingleChoiceFormComponent implements OnInit {
 
   singleChoiceForm = new FormGroup({
         question: new FormControl(null, [Validators.required]),
-        solution: new FormControl(true,[Validators.required]),
+        solution: new FormControl(null,[Validators.required]),
         deadline: new FormControl(null,[Validators.required]),
         workload: new FormControl(null,[Validators.required]),
       }
   );
+
 
   // FORM Ends
 
@@ -84,27 +85,22 @@ export class EditSingleChoiceFormComponent implements OnInit {
 
     this.id = this.activatedRoute.snapshot.params["id"];
 
-    this.singleChoiceForm.controls.solution.patchValue(true);
+    this.editSingleChoiceService.getSingleChoice(this.id).subscribe(
+        data => {
 
-    // let promise = this.editSingleChoiceService.getSingleChoice(this.id).toPromise().then(
-    //     data => {
-    //
-    //       console.warn("DATA:" ,data);
-    //
-    //       this.singleChoiceForm = new FormGroup({
-    //             question: new FormControl(data.question, [Validators.required]),
-    //             solution: new FormControl(data.solution,[Validators.required]),
-    //             deadline: new FormControl(data.deadline,[Validators.required]),
-    //             workload: new FormControl(data.workload,[Validators.required]),
-    //           }
-    //       )
-    //     }
-    // );
-    //
-    // setTimeout(function () {
-    //
-    // }, 5000);
-    
+          // this.singleChoiceForm.controls.question.setValue(data.question);
+          // this.singleChoiceForm.controls.solution.setValue(data.solution);
+          // this.singleChoiceForm.controls.workload.setValue(data.workload);
+          //
+          // this.popupModel = Date.now();
+          // this.singleChoiceForm.controls.deadline.setValue(Date.parse(data.deadline));
+          //
+          // this.d = data.deadline;
+
+        }
+    );
+
+
   }
 
   get sc() {
