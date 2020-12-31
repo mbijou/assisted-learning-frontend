@@ -60,7 +60,13 @@ export class EditSingleChoiceFormComponent implements OnInit {
 
   singleChoiceFormSubmitted = false;
 
-  singleChoiceForm;
+  singleChoiceForm = new FormGroup({
+        question: new FormControl(null, [Validators.required]),
+        solution: new FormControl(true,[Validators.required]),
+        deadline: new FormControl(null,[Validators.required]),
+        workload: new FormControl(null,[Validators.required]),
+      }
+  );
 
   // FORM Ends
 
@@ -78,22 +84,27 @@ export class EditSingleChoiceFormComponent implements OnInit {
 
     this.id = this.activatedRoute.snapshot.params["id"];
 
-    let response = this.editSingleChoiceService.getSingleChoice(this.id).subscribe(
-        data => {
+    this.singleChoiceForm.controls.solution.patchValue(true);
 
-          // TODO SUBSCRIBE
-
-        },
-    );
-
-    this.singleChoiceForm = new FormGroup({
-          question: new FormControl(null,[Validators.required]),
-          solution: new FormControl(null,[Validators.required]),
-          deadline: new FormControl(null,[Validators.required]),
-          workload: new FormControl(null,[Validators.required]),
-        }
-    )
-
+    // let promise = this.editSingleChoiceService.getSingleChoice(this.id).toPromise().then(
+    //     data => {
+    //
+    //       console.warn("DATA:" ,data);
+    //
+    //       this.singleChoiceForm = new FormGroup({
+    //             question: new FormControl(data.question, [Validators.required]),
+    //             solution: new FormControl(data.solution,[Validators.required]),
+    //             deadline: new FormControl(data.deadline,[Validators.required]),
+    //             workload: new FormControl(data.workload,[Validators.required]),
+    //           }
+    //       )
+    //     }
+    // );
+    //
+    // setTimeout(function () {
+    //
+    // }, 5000);
+    
   }
 
   get sc() {
