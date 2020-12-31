@@ -87,15 +87,12 @@ export class EditSingleChoiceFormComponent implements OnInit {
 
     this.editSingleChoiceService.getSingleChoice(this.id).subscribe(
         data => {
+          this.singleChoiceForm.controls.question.setValue(data.question);
+          this.singleChoiceForm.controls.solution.setValue(data.solution);
+          this.singleChoiceForm.controls.workload.setValue(data.workload);
 
-          // this.singleChoiceForm.controls.question.setValue(data.question);
-          // this.singleChoiceForm.controls.solution.setValue(data.solution);
-          // this.singleChoiceForm.controls.workload.setValue(data.workload);
-          //
-          // this.popupModel = Date.now();
-          // this.singleChoiceForm.controls.deadline.setValue(Date.parse(data.deadline));
-          //
-          // this.d = data.deadline;
+          let deadline = new Date(data.deadline);
+          this.popupModel = {year: deadline.getFullYear(), month: deadline.getMonth() + 1, day: deadline.getDate()};
 
         }
     );
