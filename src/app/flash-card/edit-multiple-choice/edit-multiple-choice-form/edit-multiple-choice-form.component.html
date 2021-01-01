@@ -1,0 +1,220 @@
+<section id="action-form-layout">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Edit Multiple Choice</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <p>You can use this form to edit a multiple choice flash card.</p>
+                        <form [formGroup]="multipleChoiceForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group">
+                                <label for="question">Question</label>
+                                <textarea id="question" formControlName="question" rows="4" class="form-control"
+                                          name="question" required
+                                          [ngClass]="{ 'is-invalid': multipleChoiceFormSubmitted && mc.question.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.question.errors }"
+                                ></textarea>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.question.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.question.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- START Answer & Solution 1 -->
+                            <div class="form-group">
+                                <label for="answer1">Answer 1</label>
+                                <textarea id="answer1" formControlName="answer1" rows="1" class="form-control"
+                                          name="answer1" required
+                                          [ngClass]="{ 'is-invalid': multipleChoiceFormSubmitted && mc.answer1.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.answer1.errors }"
+                                ></textarea>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.answer1.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.answer1.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="radio d-inline-block mr-2 mb-1">
+                                        <input type="radio" id="solution1_1" name="solution1" formControlName="solution1"
+                                               [value]="true">
+                                        <label for="solution1_1">True</label>
+                                    </div>
+                                    <div class="radio d-inline-block">
+                                        <input type="radio" id="solution1_2" name="solution1" formControlName="solution1"
+                                               [value]="false">
+                                        <label for="solution1_2">False</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.solution1.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.solution1.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- END Answer & Solution 1 -->
+
+                            <!-- START Answer & Solution 2 -->
+                            <div class="form-group">
+                                <label for="answer2">Answer 2</label>
+                                <textarea id="answer2" formControlName="answer2" rows="1" class="form-control"
+                                          name="answer2" required
+                                          [ngClass]="{ 'is-invalid': multipleChoiceFormSubmitted && mc.answer2.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.answer2.errors }"
+                                ></textarea>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.answer2.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.answer2.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="radio d-inline-block mr-2 mb-1">
+                                        <input type="radio" id="solution2_1" name="solution2" formControlName="solution2"
+                                               [value]="true">
+                                        <label for="solution2_1">True</label>
+                                    </div>
+                                    <div class="radio d-inline-block">
+                                        <input type="radio" id="solution2_2" name="solution2" formControlName="solution2"
+                                               [value]="false">
+                                        <label for="solution2_2">False</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.solution2.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.solution2.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- END Answer & Solution 2 -->
+
+                            <!-- START Answer & Solution 3 -->
+                            <div class="form-group">
+                                <label for="answer3">Answer 3</label>
+                                <textarea id="answer3" formControlName="answer3" rows="1" class="form-control"
+                                          name="answer3" required
+                                          [ngClass]="{ 'is-invalid': multipleChoiceFormSubmitted && mc.answer3.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.answer3.errors }"
+                                ></textarea>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.answer3.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.answer3.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="radio d-inline-block mr-2 mb-1">
+                                        <input type="radio" id="solution3_1" name="solution3" formControlName="solution3"
+                                               [value]="true">
+                                        <label for="solution3_1">True</label>
+                                    </div>
+                                    <div class="radio d-inline-block">
+                                        <input type="radio" id="solution3_2" name="solution3" formControlName="solution3"
+                                               [value]="false">
+                                        <label for="solution3_2">False</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.solution3.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.solution3.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- END Answer & Solution 3 -->
+
+                            <!-- START Answer & Solution 4 -->
+                            <div class="form-group">
+                                <label for="answer4">Answer 4</label>
+                                <textarea id="answer4" formControlName="answer4" rows="1" class="form-control"
+                                          name="answer4" required
+                                          [ngClass]="{ 'is-invalid': multipleChoiceFormSubmitted && mc.answer4.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.answer4.errors }"
+                                ></textarea>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.answer4.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.answer4.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="radio d-inline-block mr-2 mb-1">
+                                        <input type="radio" id="solution4_1" name="solution4" formControlName="solution4"
+                                               [value]="true">
+                                        <label for="solution4_1">True</label>
+                                    </div>
+                                    <div class="radio d-inline-block">
+                                        <input type="radio" id="solution4_2" name="solution4" formControlName="solution4"
+                                               [value]="false">
+                                        <label for="solution4_2">False</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.solution4.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.solution4.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- END Answer & Solution 4 -->
+
+
+                            <div class="form-group">
+                                <label for="deadline">Deadline</label>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="deadline" [(ngModel)]="popupModel" ngbDatepicker
+                                           #d="ngbDatepicker" formControlName="deadline"
+                                           [ngClass]="{'is-invalid': multipleChoiceFormSubmitted && mc.deadline.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.deadline.errors }"/>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text" (click)="d.toggle()">
+                                            <i class="fa fa-calendar" style="cursor: pointer;"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.deadline.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.deadline.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <div class="form-group">
+                                <label for="workload">Workload (per day)</label>
+                                <input type="number" id="workload" class="form-control" name="workload"
+                                       formControlName="workload"
+                                       [ngClass]="{'is-invalid': multipleChoiceFormSubmitted && mc.workload.errors,
+                                                       'is-valid': multipleChoiceFormSubmitted && !mc.workload.errors }"
+                                />
+                                <div *ngIf="multipleChoiceFormSubmitted && mc.workload.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mc.workload.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -11,14 +11,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { EditSingleChoiceComponent } from './edit-single-choice/edit-single-choice.component';
-import { EditSingleChoiceFormComponent } from './edit-single-choice/edit-single-choice-form/edit-single-choice-form.component'
+import { EditSingleChoiceFormComponent } from './edit-single-choice/edit-single-choice-form/edit-single-choice-form.component';
+import { EditMultipleChoiceComponent } from './edit-multiple-choice/edit-multiple-choice.component';
+import { EditMultipleChoiceFormComponent } from './edit-multiple-choice/edit-multiple-choice-form/edit-multiple-choice-form.component'
 
 
 @NgModule({
   declarations: [NewFlashCardComponent, NewSingleChoiceComponent, NewMultipleChoiceComponent, SingleChoiceFormComponent,
     NewMultipleChoiceFormComponent,
     EditSingleChoiceComponent,
-    EditSingleChoiceFormComponent],
+    EditSingleChoiceFormComponent,
+    EditMultipleChoiceComponent,
+    EditMultipleChoiceFormComponent],
   imports: [
     CommonModule,
     FormsModule,

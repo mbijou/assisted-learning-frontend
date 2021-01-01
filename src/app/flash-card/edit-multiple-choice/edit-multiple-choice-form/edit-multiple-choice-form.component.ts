@@ -1,13 +1,14 @@
 import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {NewMultipleChoiceService, SolutionInterface} from '../new-multiple-choice.service';
-import { MultipleChoiceInterface } from '../new-multiple-choice.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import { EditMultipleChoiceService, SolutionInterface} from '../edit-multiple-choice.service';
+import { MultipleChoiceInterface } from '../edit-multiple-choice.service';
 import { DatePipe } from '@angular/common';
 import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
-
+import {NewMultipleChoiceService} from '../../new-multiple-choice/new-multiple-choice.service';
+import { NewMultipleChoiceFormComponent } from '../../new-multiple-choice/new-multiple-choice-form/new-multiple-choice-form.component';
 
 const now = new Date();
 
@@ -19,12 +20,13 @@ const I18N_VALUES = {
 };
 
 @Component({
-  selector: 'new-multiple-choice-form',
-  templateUrl: './new-multiple-choice-form.component.html',
-  styleUrls: ['./new-multiple-choice-form.component.scss', '/assets/sass/libs/datepicker.scss',],
+  selector: 'edit-multiple-choice-form',
+  templateUrl: './edit-multiple-choice-form.component.html',
+  styleUrls: ['./edit-multiple-choice-form.component.scss', '/assets/sass/libs/datepicker.scss',],
   encapsulation: ViewEncapsulation.None
 })
-export class NewMultipleChoiceFormComponent implements OnInit {
+export class EditMultipleChoiceFormComponent implements OnInit {
+
   // Variable declaration
   d: any;
   model: NgbDateStruct;
@@ -76,70 +78,78 @@ export class NewMultipleChoiceFormComponent implements OnInit {
 
   // FORM Ends
 
+  id;
+  solutionSetIds = {"solution1": null, "solution2": null, "solution3": null, "solution4": null};
+
   constructor(
       private router: Router,
+      private activatedRoute: ActivatedRoute,
       private changeDetector: ChangeDetectorRef,
-      public newMultipleChoiceService: NewMultipleChoiceService,
+      public editMultipleChoiceService: EditMultipleChoiceService,
       public datePipe: DatePipe
-  ){
+  ) { }
 
-  }
+
 
   ngOnInit(): void {
+
+    this.id = this.activatedRoute.snapshot.params["id"];
+
+
+    this.editMultipleChoiceService.getMultipleChoice(this.id).subscribe(
+        data => {
+          this.multipleChoiceForm.controls.question.setValue(data.question);
+          // this.multipleChoiceForm.controls.solution.setValue(data.solution);
+          this.multipleChoiceForm.controls.workload.setValue(data.workload);
+
+          for(let index in data.solution_set){
+            let solution = data.solution_set[index];
+            this.multipleChoiceForm.controls["answer"+(parseInt(index)+1)].setValue(solution.answer);
+            this.multipleChoiceForm.controls["solution"+(parseInt(index)+1)].setValue(solution.solution);
+
+            this.solutionSetIds["solution"+(parseInt(index)+1)] = solution.id;
+          }
+
+          let deadline = new Date(data.deadline);
+          this.popupModel = {year: deadline.getFullYear(), month: deadline.getMonth() + 1, day: deadline.getDate()};
+
+          this.changeDetector.detectChanges();
+
+        }
+    );
+
   }
 
   get mc() {
     return this.multipleChoiceForm.controls;
   }
 
-  getFormattedDeadline(deadline){
-    if(deadline && deadline.day && deadline.month && deadline.year){
-      deadline = new Date(deadline.year, deadline.month, deadline.day);
-      deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
-    }
-    return deadline;
-  }
+  getFormattedDeadline = NewMultipleChoiceFormComponent.prototype.getFormattedDeadline;
 
-  handleSolutionSetErrors(errors){
-    for(let index in errors["error"]["solution_set"]){
-      if(errors["error"]["solution_set"].hasOwnProperty(index)) {
-        let errorObject = errors["error"]["solution_set"][index];
-
-        if("answer" in errorObject){
-          let answerKey = "answer" + (parseInt(index)+1).toString();
-            this.multipleChoiceForm.controls[answerKey].setErrors(
-                {serverErrors: errorObject["answer"]}
-            );
-        }
-
-        if("solution" in errorObject){
-          let solutionKey = "solution" + (parseInt(index)+1).toString();
-            this.multipleChoiceForm.controls[solutionKey].setErrors(
-                {serverErrors: errorObject["solution"]}
-            );
-        }
-      }
-    }
-  }
+  handleSolutionSetErrors = NewMultipleChoiceFormComponent.prototype.handleSolutionSetErrors;
 
   getSolutionSetFromMultipleChoiceForm(){
     let solutionSet: SolutionInterface[] = [
       {
+        "id": this.solutionSetIds["solution1"],
         "answer": this.multipleChoiceForm.controls.answer1.value,
         "solution": this.multipleChoiceForm.controls.solution1.value,
 
       },
       {
+        "id": this.solutionSetIds["solution2"],
         "answer": this.multipleChoiceForm.controls.answer2.value,
         "solution": this.multipleChoiceForm.controls.solution2.value,
 
       },
       {
+        "id": this.solutionSetIds["solution3"],
         "answer": this.multipleChoiceForm.controls.answer3.value,
         "solution": this.multipleChoiceForm.controls.solution3.value,
 
       },
       {
+        "id": this.solutionSetIds["solution4"],
         "answer": this.multipleChoiceForm.controls.answer4.value,
         "solution": this.multipleChoiceForm.controls.solution4.value,
 
@@ -148,6 +158,7 @@ export class NewMultipleChoiceFormComponent implements OnInit {
 
     return solutionSet;
   }
+
 
   onSubmit() {
 
@@ -163,11 +174,10 @@ export class NewMultipleChoiceFormComponent implements OnInit {
       "solution_set": solutionSet,
     };
 
-    this.newMultipleChoiceService.createNewMultipleChoice(data).subscribe(
+    this.editMultipleChoiceService.updateMultipleChoice(data, this.id).subscribe(
         data => {
           this.multipleChoiceFormSubmitted = true;
-          this.router.navigate(['/']);
-          // this.router.navigate(['/flashcards/multiple-choices/' + data["id"] + '/edit/']);
+          this.router.navigate(['/flashcards/multiple-choices/' + data["id"] + '/edit/']);
 
         },
         errors => {
@@ -200,11 +210,6 @@ export class NewMultipleChoiceFormComponent implements OnInit {
       return;
     }
 
-
-
-
-    this.router.navigate(['/']);
   }
-
 
 }

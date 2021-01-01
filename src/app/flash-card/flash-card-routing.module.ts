@@ -5,6 +5,7 @@ import { NewFlashCardComponent } from "./new-flash-card/new-flash-card.component
 import { NewSingleChoiceComponent } from "./new-single-choice/new-single-choice.component";
 import { NewMultipleChoiceComponent } from "./new-multiple-choice/new-multiple-choice.component";
 import { EditSingleChoiceComponent } from './edit-single-choice/edit-single-choice.component';
+import { EditMultipleChoiceComponent } from './edit-multiple-choice/edit-multiple-choice.component';
 
 const routes: Routes = [
     {
@@ -38,6 +39,13 @@ const routes: Routes = [
                 component: NewMultipleChoiceComponent,
                 data: {
                     title: 'New Flashcard'
+                }
+            },
+            {
+                path: 'multiple-choices/:id/edit',
+                component: EditMultipleChoiceComponent,
+                data: {
+                    title: 'Edit Flashcard'
                 }
             },
 
