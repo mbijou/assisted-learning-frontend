@@ -10,6 +10,7 @@ import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
 import {NewMultipleChoiceService} from '../../new-multiple-choice/new-multiple-choice.service';
 import { NewMultipleChoiceFormComponent } from '../../new-multiple-choice/new-multiple-choice-form/new-multiple-choice-form.component';
 
+
 const now = new Date();
 
 const I18N_VALUES = {

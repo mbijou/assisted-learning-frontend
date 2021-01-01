@@ -166,8 +166,7 @@ export class NewMultipleChoiceFormComponent implements OnInit {
     this.newMultipleChoiceService.createNewMultipleChoice(data).subscribe(
         data => {
           this.multipleChoiceFormSubmitted = true;
-          this.router.navigate(['/']);
-          // this.router.navigate(['/flashcards/multiple-choices/' + data["id"] + '/edit/']);
+          this.router.navigate(['/flashcards/multiple-choices/' + data["id"] + '/edit/']);
 
         },
         errors => {
@@ -201,9 +200,6 @@ export class NewMultipleChoiceFormComponent implements OnInit {
     }
 
 
-
-
-    this.router.navigate(['/']);
   }
 
 

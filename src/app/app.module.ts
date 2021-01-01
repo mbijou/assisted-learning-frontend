@@ -30,6 +30,8 @@ import { FullLayoutComponent } from "./layouts/full/full-layout.component";
 import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AddHeaderInterceptorComponent } from './authentication/add-header-interceptor/add-header-interceptor.component';
 
 
 var firebaseConfig = {
@@ -52,6 +54,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
+
 
 @NgModule({
   declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent],
@@ -87,7 +90,12 @@ export function createTranslateLoader(http: HttpClient) {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-    WINDOW_PROVIDERS
+    WINDOW_PROVIDERS,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddHeaderInterceptorComponent,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })
