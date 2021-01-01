@@ -94,10 +94,10 @@ export class EditSingleChoiceFormComponent implements OnInit {
           let deadline = new Date(data.deadline);
           this.popupModel = {year: deadline.getFullYear(), month: deadline.getMonth() + 1, day: deadline.getDate()};
 
+          this.changeDetector.detectChanges();
+
         }
     );
-
-
   }
 
   get sc() {
@@ -130,7 +130,9 @@ export class EditSingleChoiceFormComponent implements OnInit {
         data => {
 
           this.singleChoiceFormSubmitted = true;
-          this.router.navigate(['/']);
+          console.warn('/single-choices/' + this.id + '/edit/');
+          this.router.navigate(['/flashcards/single-choices/' + this.id + '/edit/']);
+
 
         },
         errors => {

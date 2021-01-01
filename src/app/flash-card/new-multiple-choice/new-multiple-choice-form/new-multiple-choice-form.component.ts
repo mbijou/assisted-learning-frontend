@@ -165,6 +165,7 @@ export class NewMultipleChoiceFormComponent implements OnInit {
         data => {
           this.multipleChoiceFormSubmitted = true;
           this.router.navigate(['/']);
+          // this.router.navigate(['/flashcards/multiple-choices/' + data["id"] + '/edit/']);
 
         },
         errors => {

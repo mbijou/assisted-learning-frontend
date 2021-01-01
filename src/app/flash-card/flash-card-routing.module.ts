@@ -18,15 +18,9 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'new/single-choice',
+                // path: 'new/single-choice',
+                path: 'single-choices/new',
                 component: NewSingleChoiceComponent,
-                data: {
-                    title: 'New Flashcard'
-                }
-            },
-            {
-                path: 'new/multiple-choice',
-                component: NewMultipleChoiceComponent,
                 data: {
                     title: 'New Flashcard'
                 }
@@ -36,6 +30,14 @@ const routes: Routes = [
                 component: EditSingleChoiceComponent,
                 data: {
                     title: 'Edit Flashcard'
+                }
+            },
+            {
+                // path: 'new/multiple-choice',
+                path: 'multiple-choices/new',
+                component: NewMultipleChoiceComponent,
+                data: {
+                    title: 'New Flashcard'
                 }
             },
 
