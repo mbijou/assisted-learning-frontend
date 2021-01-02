@@ -12,25 +12,25 @@
               <div class="col-lg-6 col-12 px-4 py-3">
                 <h4 class="mb-2 card-title">Login</h4>
                 <p>Welcome, please login to your account.</p>
-                <ngb-alert type="light-danger" class="mb-2" *ngIf="isLoginFailed" (close)="isLoginFailed = false">
-                  <p class="mb-0">Login failed!</p>
-                </ngb-alert>
+<!--                <ngb-alert type="light-danger" class="mb-2" *ngIf="isLoginFailed" (close)="isLoginFailed = false">-->
+<!--                  <p class="mb-0">Login failed!</p>-->
+<!--                </ngb-alert>-->
                 <form [formGroup]="loginForm">
                   <div class="form-group">
                     <input type="text" formControlName="username" class="form-control" placeholder="Username"
-                      [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.username.invalid, 'is-valid': loginFormSubmitted && !lf.username.invalid }"
+                      [ngClass]="{ 'is-invalid': loginFormSubmitted && loginForm.errors?.serverErrors}"
                       required>
-                    <div *ngIf="loginFormSubmitted && (lf.username.invalid || lf.username.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
-                      required</div>
                   </div>
                   <div class="form-group">
-                    <input type="password" formControlName="password" class="form-control" placeholder="Old Password"
-                      [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.password.invalid, 'is-valid': loginFormSubmitted && !lf.password.invalid }"
+                    <input type="password" formControlName="password" class="form-control" placeholder="Password"
+                      [ngClass]="{ 'is-invalid': loginFormSubmitted && loginForm.errors?.serverErrors}"
                       required>
-                    <div *ngIf="loginFormSubmitted && (lf.password.invalid || lf.password.errors?.required)"
-                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
-                    </div>
+                  </div>
+                  <div *ngIf="loginFormSubmitted && loginForm.errors?.serverErrors"
+                       class="help-block mt-1 text-danger">
+                    <p *ngFor="let error_msg of loginForm.errors?.serverErrors">
+                      <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                    </p>
                   </div>
                   <div class="d-flex justify-content-between flex-sm-row flex-column">
                     <a [routerLink]="['/pages/register']" class="btn bg-light-primary mb-2 mb-sm-0">Register</a>

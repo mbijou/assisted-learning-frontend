@@ -16,6 +16,7 @@ import { RegisterPageComponent } from "./register/register-page.component";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LogoutComponent } from './logout/logout.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -44,7 +45,8 @@ export function createTranslateLoader(http: HttpClient) {
     LockScreenPageComponent,
     LoginPageComponent,
     MaintenancePageComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    LogoutComponent
   ]
 })
 export class ContentPagesModule { }

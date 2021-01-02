@@ -71,5 +71,4 @@ export const Full_ROUTES: Routes = [
     path: 'flashcards',
     loadChildren: () => import('../../flash-card/flash-card.module').then(m => m.FlashCardModule)
   },
-
 ];

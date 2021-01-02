@@ -1,9 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from 'app/shared/auth/auth.service';
 import { NgxSpinnerService } from "ngx-spinner";
-
+import {AuthenticationService, TokenErrorInterface} from '../../../authentication/authentication.service';
 
 @Component({
   selector: 'app-login-page',
@@ -17,15 +17,18 @@ export class LoginPageComponent {
   isLoginFailed = false;
 
   loginForm = new FormGroup({
-    username: new FormControl('guest@apex.com', [Validators.required]),
-    password: new FormControl('Password', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     rememberMe: new FormControl(true)
   });
 
 
-  constructor(private router: Router, private authService: AuthService,
-    private spinner: NgxSpinnerService,
-    private route: ActivatedRoute) {
+  constructor(
+      private router: Router,
+      private spinner: NgxSpinnerService,
+      private route: ActivatedRoute,
+      private authenticationService: AuthenticationService,
+      private changeDetector: ChangeDetectorRef,) {
   }
 
   get lf() {
@@ -48,15 +51,22 @@ export class LoginPageComponent {
         fullScreen: true
       });
 
-    this.authService.signinUser(this.loginForm.value.username, this.loginForm.value.password)
-      .then((res) => {
+    this.authenticationService.generateToken(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+        data => {
         this.spinner.hide();
+        localStorage.setItem("token", data.token);
         this.router.navigate(['/dashboard/dashboard1']);
-      })
-      .catch((err) => {
+      },
+      err => {
         this.isLoginFailed = true;
         this.spinner.hide();
-        console.log('error: ' + err)
+
+        this.loginForm.setErrors(
+            { serverErrors: err["error"].non_field_errors }
+            );
+
+        this.changeDetector.detectChanges();
+
       }
       );
   }
