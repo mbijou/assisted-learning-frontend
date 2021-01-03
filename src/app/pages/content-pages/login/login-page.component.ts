@@ -38,6 +38,7 @@ export class LoginPageComponent {
   // On submit button click
   onSubmit() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user_id");
 
     this.loginFormSubmitted = true;
     if (this.loginForm.invalid) {
@@ -59,9 +60,10 @@ export class LoginPageComponent {
 
             localStorage.setItem("token", data.token);
             localStorage.setItem("user_id", (data.user.id).toString());
+            localStorage.setItem("user_username", data.user.username);
             localStorage.setItem("user_first_name", data.user.first_name);
             localStorage.setItem("user_last_name", data.user.last_name);
-            localStorage.setItem("user_first_email", data.user.email);
+            localStorage.setItem("user_email", data.user.email);
 
             this.router.navigate(['/dashboard/dashboard1']);
       },

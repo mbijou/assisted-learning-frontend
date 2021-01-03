@@ -32,7 +32,6 @@ export class AuthenticationService {
     if(localStorage.getItem("token") && localStorage.getItem("user_id")){
       return true;
     }
-    // TODO Token vorher abchecken
   }
 
   generateToken(username, password){

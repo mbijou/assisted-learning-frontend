@@ -124,8 +124,6 @@ export class EditSingleChoiceFormComponent implements OnInit {
       "deadline": deadline
     };
 
-    // TODO Form daten initialisieren, Update multiple choice
-
     this.editSingleChoiceService.updateSingleChoice(data, this.id).subscribe(
         data => {
 

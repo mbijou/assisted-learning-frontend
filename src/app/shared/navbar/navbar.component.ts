@@ -8,6 +8,7 @@ import { CustomizerService } from '../services/customizer.service';
 import { FormControl } from '@angular/forms';
 import { LISTITEMS } from '../data/template-search';
 import { Router } from '@angular/router';
+import {UserInterface} from '../../authentication/authentication.service';
 
 @Component({
   selector: "app-navbar",
@@ -30,6 +31,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   public isCollapsed = true;
   layoutSub: Subscription;
   configSub: Subscription;
+  user: UserInterface = {
+    id: null,
+    username: null,
+    first_name: null,
+    last_name: null,
+    email: null
+  };
 
   @ViewChild('search') searchElement: ElementRef;
   @ViewChildren('searchResults') searchResults: QueryList<any>;
@@ -63,6 +71,17 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    let authToken = localStorage.getItem("token");
+    let user_id = localStorage.getItem("user_id");
+
+    if(authToken && user_id){
+      this.user.id = parseInt(user_id);
+      this.user.first_name = localStorage.getItem("user_first_name");
+      this.user.last_name = localStorage.getItem("user_last_name");
+      this.user.email = localStorage.getItem("user_email");
+      this.user.username = localStorage.getItem("user_username");
+    }
+
     this.listItems = LISTITEMS;
 
     if (this.innerWidth < 1200) {
