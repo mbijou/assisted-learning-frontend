@@ -23,14 +23,17 @@ export class AddHeaderInterceptorComponent implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if(!(localStorage.getItem("token"))){
-      this.router.navigate(["/"]);
+    let headers_data = {};
+
+    if(!(localStorage.getItem("token")) || !(localStorage.getItem("user_id"))){
+        this.router.navigate(["/pages/login"]);
+    }else{
+      let token = localStorage.getItem("token");
+      headers_data = {headers: req.headers.append('Authorization', 'Token ' + token)};
     }
 
-
-    // TODO Benutzer einloggen, wenn kein Token da, dann auf login Seite weiterleiten -> Token erstellen
     // Clone the request to add the new header
-    const clonedRequest = req.clone({ headers: req.headers.append('Authorization', 'Token 22231ea901aabf44efeab1295fa185adba5285c5') });
+    const clonedRequest = req.clone(headers_data);
 
     // Pass the cloned request instead of the original request to the next handle
     return next.handle(clonedRequest);

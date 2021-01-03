@@ -37,6 +37,8 @@ export class LoginPageComponent {
 
   // On submit button click
   onSubmit() {
+    localStorage.removeItem("token");
+
     this.loginFormSubmitted = true;
     if (this.loginForm.invalid) {
       return;
@@ -53,19 +55,33 @@ export class LoginPageComponent {
 
     this.authenticationService.generateToken(this.loginForm.value.username, this.loginForm.value.password).subscribe(
         data => {
-        this.spinner.hide();
-        localStorage.setItem("token", data.token);
-        this.router.navigate(['/dashboard/dashboard1']);
+            this.spinner.hide();
+
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("user_id", (data.user.id).toString());
+            localStorage.setItem("user_first_name", data.user.first_name);
+            localStorage.setItem("user_last_name", data.user.last_name);
+            localStorage.setItem("user_first_email", data.user.email);
+
+            this.router.navigate(['/dashboard/dashboard1']);
       },
       err => {
-        this.isLoginFailed = true;
-        this.spinner.hide();
+            this.isLoginFailed = true;
+            this.spinner.hide();
+            console.warn(err["error"]);
 
-        this.loginForm.setErrors(
-            { serverErrors: err["error"].non_field_errors }
-            );
+            if(err["error"].non_field_errors){
+                this.loginForm.setErrors(
+                    { serverErrors: err["error"].non_field_errors }
+                    );
+            }else{
+                this.loginForm.setErrors(
+                    {serverErrors: ["Invalid credentials"]}
+                );
+            }
 
-        this.changeDetector.detectChanges();
+
+            this.changeDetector.detectChanges();
 
       }
       );

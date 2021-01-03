@@ -1,8 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+export interface UserInterface {
+  id: number,
+  username: string,
+  first_name: string,
+  last_name: string,
+  email: string
+}
+
+
 export interface TokenInterface {
   token: string,
+  user: UserInterface
 }
 
 export interface TokenErrorInterface {
@@ -19,7 +29,7 @@ export class AuthenticationService {
   ) { }
 
   isAuthenticated(){
-    if(localStorage.getItem("token")){
+    if(localStorage.getItem("token") && localStorage.getItem("user_id")){
       return true;
     }
     // TODO Token vorher abchecken
