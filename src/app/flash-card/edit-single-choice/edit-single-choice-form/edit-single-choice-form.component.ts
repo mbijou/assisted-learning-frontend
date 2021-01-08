@@ -118,10 +118,11 @@ export class EditSingleChoiceFormComponent implements OnInit {
     let deadline = this.getFormattedDeadline(this.singleChoiceForm.controls.deadline.value);
 
     const data: SingleChoiceInterface = {
-      "question": this.singleChoiceForm.controls.question.value,
-      "workload": this.singleChoiceForm.controls.workload.value,
-      "solution": this.singleChoiceForm.controls.solution.value,
-      "deadline": deadline
+        "question": this.singleChoiceForm.controls.question.value,
+        "workload": this.singleChoiceForm.controls.workload.value,
+        "solution": this.singleChoiceForm.controls.solution.value,
+        "deadline": deadline,
+        "user": parseInt(localStorage.getItem("user_id")),
     };
 
     this.editSingleChoiceService.updateSingleChoice(data, this.id).subscribe(

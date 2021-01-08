@@ -13,6 +13,7 @@ import { Dashboard2Component } from "./dashboard2/dashboard2.component";
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
+import { Dashboard3Component } from './dashboard3/dashboard3.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {FormsModule} from '@angular/forms';
     exports: [],
     declarations: [
         Dashboard1Component,
-        Dashboard2Component
+        Dashboard2Component,
+        Dashboard3Component
     ],
     providers: [],
 })

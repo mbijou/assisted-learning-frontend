@@ -1,0 +1,92 @@
+<!--Line with Area Chart 1 Starts-->
+<div class="row">
+    <div class="col-10">
+        <div class="card">
+
+            <div class="card-header">
+                <div class="row no-gutters">
+                    <div class="col-12">
+                        <h4 class="card-title">
+                            Flashcards
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="card-body">
+
+                    <div class="row no-gutters">
+
+                        <!--BEGIN KARTEIKARTE-->
+                        <div *ngIf="flashcard.id" class="card col-md-8 offset-md-2 bg-warning white" style="margin: auto; !important ">
+                            <div class="card-content">
+                                <div class="card-header">
+                                    <div class="card-title text-center">
+                                        <a href="{{flashcard.answer_url}}" class="text-white">
+                                            {{ flashcard.question }}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-body"></div>
+                            </div>
+                        </div>
+                        <div *ngIf="!flashcard.id" class="col-md-8 offset-md-2 white text-center">No entry found</div>
+                        <!--END KARTEIKARTE-->
+
+<!--                        &lt;!&ndash;BEGIN KARTEIKARTE&ndash;&gt;-->
+<!--                        <div class="card col-md-3 col-sm-1 bg-danger white" style="min-height:180px;margin-right: 8.3333333333%;">-->
+<!--                            <div class="card-content">-->
+<!--                                <div class="card-header">-->
+<!--                                    <div class="card-title">-->
+<!--                                        <a href="/" class="text-white">-->
+<!--                                            How bad is corona virus?-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="card-body"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;END KARTEIKARTE&ndash;&gt;-->
+
+<!--                        &lt;!&ndash;BEGIN KARTEIKARTE&ndash;&gt;-->
+<!--                        <div class="card col-md-3 col-sm-1 col-xs-1 bg-success white" style="min-height:180px;margin-right: 8.3333333333%;">-->
+<!--                            <div class="card-content">-->
+<!--                                <div class="card-header">-->
+<!--                                    <div class="card-title">-->
+<!--                                        <a href="/" class="text-white">-->
+<!--                                            You sure about that?-->
+<!--                                        </a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="card-body"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;END KARTEIKARTE&ndash;&gt;-->
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-xl-2 col-lg-12 col-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body text-center">
+                    <button class="font-medium-2 text-center my-2 btn btn-primary"><i class="icon-plus"></i> Category</button>
+                    <a class="font-medium-2 text-center my-2 btn btn-success" [routerLink]="['/flashcards/new']"><i class="icon-plus"></i> Flashcard</a>
+
+                    <div style="padding-top: 0.75rem">
+                        <h4 class="card-title text-left">Learning Group</h4>
+                        <ng-select [items]="learningGroups" bindValue="name" bindLabel="name" placeholder="Select Learning Group" [(ngModel)]="selectedLearningGroup" style="min-width:150px;">
+                        </ng-select>
+                        <p class="text-center" style="padding-top: 10px;">{{selectedLearningGroup}}&nbsp;&nbsp;<a href="/" class="text-white"><i class="icon-pencil"></i></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Line with Area Chart 1 Ends-->
+

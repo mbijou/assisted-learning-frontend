@@ -13,7 +13,9 @@ import { DatePipe } from '@angular/common';
 import { EditSingleChoiceComponent } from './edit-single-choice/edit-single-choice.component';
 import { EditSingleChoiceFormComponent } from './edit-single-choice/edit-single-choice-form/edit-single-choice-form.component';
 import { EditMultipleChoiceComponent } from './edit-multiple-choice/edit-multiple-choice.component';
-import { EditMultipleChoiceFormComponent } from './edit-multiple-choice/edit-multiple-choice-form/edit-multiple-choice-form.component'
+import { EditMultipleChoiceFormComponent } from './edit-multiple-choice/edit-multiple-choice-form/edit-multiple-choice-form.component';
+import { NewSingleChoiceAnswerComponent } from './new-single-choice-answer/new-single-choice-answer.component';
+import { NewSingleChoiceAnswerFormComponent } from './new-single-choice-answer/new-single-choice-answer-form/new-single-choice-answer-form.component'
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { EditMultipleChoiceFormComponent } from './edit-multiple-choice/edit-mul
     EditSingleChoiceComponent,
     EditSingleChoiceFormComponent,
     EditMultipleChoiceComponent,
-    EditMultipleChoiceFormComponent],
+    EditMultipleChoiceFormComponent,
+    NewSingleChoiceAnswerComponent,
+    NewSingleChoiceAnswerFormComponent],
   imports: [
     CommonModule,
     FormsModule,

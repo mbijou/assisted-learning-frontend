@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SingleChoiceInterface } from "../new-single-choice/new-single-choice.service";
-export { SingleChoiceInterface } from "../new-single-choice/new-single-choice.service";
+import { SingleChoiceInterface } from "../single-choice.service";
+export { SingleChoiceInterface } from "../single-choice.service";
 
 @Injectable({
   providedIn: 'root'

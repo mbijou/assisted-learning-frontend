@@ -2,8 +2,8 @@ import {Component, OnInit, ViewEncapsulation, ChangeDetectorRef} from '@angular/
 import { NgbDateStruct, NgbDatepickerI18n, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import { NewSingleChoiceService } from '../new-single-choice.service';
-import { SingleChoiceInterface } from '../new-single-choice.service';
+import { SingleChoiceService } from '../../single-choice.service';
+import { SingleChoiceInterface } from '../../single-choice.service';
 import { DatePipe } from '@angular/common';
 import {setProperty} from 'swiper/angular/angular/src/utils/utils';
 
@@ -74,7 +74,7 @@ export class NewSingleChoiceFormComponent implements OnInit {
   constructor(
       private router: Router,
       private changeDetector: ChangeDetectorRef,
-      public newSingleChoiceService: NewSingleChoiceService,
+      public newSingleChoiceService: SingleChoiceService,
       public datePipe: DatePipe) {
   }
 
@@ -102,7 +102,8 @@ export class NewSingleChoiceFormComponent implements OnInit {
       "question": this.singleChoiceForm.controls.question.value,
       "workload": this.singleChoiceForm.controls.workload.value,
       "solution": this.singleChoiceForm.controls.solution.value,
-      "deadline": deadline
+      "deadline": deadline,
+      "user": parseInt(localStorage.getItem("user_id")),
     };
 
 

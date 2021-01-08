@@ -5,7 +5,7 @@ export interface MultipleChoiceInterface {
   question: string;
   workload: number;
   deadline: any;
-
+  user: number;
   solution_set: SolutionInterface[];
 }
 

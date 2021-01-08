@@ -159,7 +159,7 @@ export class NewMultipleChoiceFormComponent implements OnInit {
       "question": this.multipleChoiceForm.controls.question.value,
       "workload": this.multipleChoiceForm.controls.workload.value,
       "deadline": deadline,
-
+      "user": parseInt(localStorage.getItem("user_id")),
       "solution_set": solutionSet,
     };
 

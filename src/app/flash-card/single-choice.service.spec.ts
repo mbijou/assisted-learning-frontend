@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NewSingleChoiceService } from './new-single-choice.service';
+import { SingleChoiceService } from './single-choice.service';
 
 describe('NewSingleChoiceService', () => {
-  let service: NewSingleChoiceService;
+  let service: SingleChoiceService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NewSingleChoiceService);
+    service = TestBed.inject(SingleChoiceService);
   });
 
   it('should be created', () => {

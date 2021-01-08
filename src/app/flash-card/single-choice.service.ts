@@ -7,18 +7,18 @@ export interface SingleChoiceInterface {
   workload: number;
   deadline: any;
   solution: boolean;
+  user: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class NewSingleChoiceService {
+export class SingleChoiceService {
 
   constructor(private http: HttpClient) { }
 
-  getSingleChoices(){
-    return this.http.get("api/v1/single-choices/");
-    //return this.http.get<SingleChoiceInterface>("api/v1/single-choices/");
+  getSingleChoices(id){
+    return this.http.get<SingleChoiceInterface>(`api/v1/single-choices/${id}/`);
   }
 
   createNewSingleChoice(data){
