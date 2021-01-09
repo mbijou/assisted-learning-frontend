@@ -1,7 +1,9 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { SingleChoiceService } from '../../single-choice.service';
+import {SingleChoiceAnswerInterface, SingleChoiceService} from '../../single-choice.service';
 import {ActivatedRoute } from '@angular/router';
-import {SingleChoiceInterface} from '../../edit-single-choice/edit-single-choice.service';
+import {SingleChoiceInterface} from '../../single-choice.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,6 +14,11 @@ import {SingleChoiceInterface} from '../../edit-single-choice/edit-single-choice
 export class NewSingleChoiceAnswerFormComponent implements OnInit {
 
   private singleChoiceId;
+  singleChoiceAnswerFormSubmitted = false;
+
+  singleChoiceAnswerForm = new FormGroup({
+      answer: new FormControl(null,[Validators.required]),
+      });
 
   singleChoiceData: SingleChoiceInterface = {
     "question": null, "workload": null, "deadline": null,
@@ -22,17 +29,22 @@ export class NewSingleChoiceAnswerFormComponent implements OnInit {
     return this.singleChoiceData;
   }
 
+  get scfc(){
+      return this.singleChoiceAnswerForm.controls;
+  }
+
   constructor(
       private singleChoiceService: SingleChoiceService,
       private activatedRoute: ActivatedRoute,
       private changeDetector: ChangeDetectorRef,
+      private router: Router,
   ) { }
 
   ngOnInit(): void {
 
     this.singleChoiceId = this.activatedRoute.snapshot.params["id"];
 
-    this.singleChoiceService.getSingleChoices(this.singleChoiceId).subscribe(
+    this.singleChoiceService.getSingleChoice(this.singleChoiceId).subscribe(
         data => {
 
           this.singleChoiceData.question = data.question;
@@ -41,14 +53,39 @@ export class NewSingleChoiceAnswerFormComponent implements OnInit {
           this.singleChoiceData.solution = data.solution;
           this.singleChoiceData.user = data.user;
 
-
-
-
-
+          // TODO
           this.changeDetector.detectChanges();
 
         }
     );
+  }
+
+  onSubmit(){
+
+      let data: SingleChoiceAnswerInterface = {"answer": this.singleChoiceAnswerForm.controls["answer"].value}
+
+
+      this.singleChoiceService.createNewSingleChoiceAnswer(this.singleChoiceId, data).subscribe(
+          data => {
+              this.singleChoiceAnswerFormSubmitted = true;
+
+              this.router.navigate(['/dashboard/']);
+          },
+          errors => {
+              this.singleChoiceAnswerFormSubmitted = true;
+
+              for(let key in errors["error"]){
+                  if(errors["error"].hasOwnProperty(key)){
+                      this.singleChoiceAnswerForm.controls[key].setErrors(
+                          { serverErrors: errors["error"][key] }
+                      );
+                  }
+              }
+
+              this.changeDetector.detectChanges();
+          });
+
+
 
   }
 

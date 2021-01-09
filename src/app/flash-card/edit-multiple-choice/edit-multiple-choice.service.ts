@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 export interface MultipleChoiceInterface {
   question: string;
   workload: number;
@@ -11,7 +12,7 @@ export interface MultipleChoiceInterface {
 
 export interface SolutionInterface{
   id: number;
-  answer: string;
+  answer: string; //TODO Change to "choice" or "text"
   solution: boolean;
 }
 

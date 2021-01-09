@@ -1,14 +1,52 @@
 <section id="action-form-layout">
     <div class="row match-height">
-        <div class="col-12">
+        <div class="col-md-12 col-lg-10 offset-lg-1">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-center">
                     <h4 class="card-title">Answer Single Choice</h4>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <p>You can use this form to answer a single choice flash card.</p>
-
+                        <form [formGroup]="singleChoiceAnswerForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group text-center">
+                                <h6>You can use this form to answer a single choice flash card.</h6>
+                                <br>
+                                <label>Question</label>
+                                <h4>{{ scd.question }}</h4>
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <div class="radio d-inline-block mr-2 mb-1">
+                                    <input type="radio" id="answer1" name="answer" formControlName="answer"
+                                           [value]="true">
+                                    <label for="answer1">True</label>
+                                </div>
+                                <div class="radio d-inline-block">
+                                    <input type="radio" id="answer2" name="answer" formControlName="answer"
+                                           [value]="false">
+                                    <label for="answer2">False</label>
+                                </div>
+                                <div *ngIf="singleChoiceAnswerFormSubmitted && scfc.answer.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of scfc.answer.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <label>Workload</label>
+                                <h5>{{ scd.workload }}</h5>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>Deadline</label>
+                                <h5>{{ scd.deadline }}</h5>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mr-2">Save answer</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

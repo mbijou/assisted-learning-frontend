@@ -1,0 +1,128 @@
+<section id="action-form-layout">
+    <div class="row match-height">
+        <div class="col-md-12 col-lg-10 offset-lg-1">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4 class="card-title">Answer Single Choice</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form [formGroup]="multipleChoiceAnswerForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group text-center">
+                                <h6>You can use this form to answer a multiple choice flash card.</h6>
+                                <br>
+                                <label>Question</label>
+                                <h4>{{ mcd.question }}</h4>
+                            </div>
+                            <br>
+
+                            <!-- Begin Answer 1 -->
+                            <div class="form-group text-center">
+                                <h5>{{ mcd.solution_set[0]?.answer }}</h5>
+                                <div class="radio d-inline-block mr-2 mb-1">
+                                    <input type="radio" id="answer1_1" name="answer1" formControlName="answer1"
+                                           [value]="true">
+                                    <label for="answer1_1">True</label>
+                                </div>
+                                <div class="radio d-inline-block">
+                                    <input type="radio" id="answer1_2" name="answer1" formControlName="answer1"
+                                           [value]="false">
+                                    <label for="answer1_2">False</label>
+                                </div>
+                                <div *ngIf="multipleChoiceAnswerFormSubmitted && mcfc.answer1.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mcfc.answer1.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- End Answer 1 -->
+
+                            <!-- Begin Answer 2 -->
+                            <div class="form-group text-center">
+                                <h5>{{ mcd.solution_set[1]?.answer }}</h5>
+                                <div class="radio d-inline-block mr-2 mb-1">
+                                    <input type="radio" id="answer2_1" name="answer2" formControlName="answer2"
+                                           [value]="true">
+                                    <label for="answer2_1">True</label>
+                                </div>
+                                <div class="radio d-inline-block">
+                                    <input type="radio" id="answer2_2" name="answer2" formControlName="answer2"
+                                           [value]="false">
+                                    <label for="answer2_2">False</label>
+                                </div>
+                                <div *ngIf="multipleChoiceAnswerFormSubmitted && mcfc.answer2.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mcfc.answer2.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- End Answer 2 -->
+
+                            <!-- Begin Answer 3 -->
+                            <div class="form-group text-center">
+                                <h5>{{ mcd.solution_set[2]?.answer }}</h5>
+                                <div class="radio d-inline-block mr-2 mb-1">
+                                    <input type="radio" id="answer3_1" name="answer3" formControlName="answer3"
+                                           [value]="true">
+                                    <label for="answer3_1">True</label>
+                                </div>
+                                <div class="radio d-inline-block">
+                                    <input type="radio" id="answer3_2" name="answer3" formControlName="answer3"
+                                           [value]="false">
+                                    <label for="answer3_2">False</label>
+                                </div>
+                                <div *ngIf="multipleChoiceAnswerFormSubmitted && mcfc.answer3.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mcfc.answer3.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- End Answer 3 -->
+
+                            <!-- Begin Answer 4 -->
+                            <div class="form-group text-center">
+                                <h5>{{ mcd.solution_set[3]?.answer }}</h5>
+                                <div class="radio d-inline-block mr-2 mb-1">
+                                    <input type="radio" id="answer4_1" name="answer4" formControlName="answer4"
+                                           [value]="true">
+                                    <label for="answer4_1">True</label>
+                                </div>
+                                <div class="radio d-inline-block">
+                                    <input type="radio" id="answer4_2" name="answer4" formControlName="answer4"
+                                           [value]="false">
+                                    <label for="answer4_2">False</label>
+                                </div>
+                                <div *ngIf="multipleChoiceAnswerFormSubmitted && mcfc.answer4.errors"
+                                     class="help-block mt-1 text-danger">
+                                    <p *ngFor="let error_msg of mcfc.answer4.errors.serverErrors">
+                                        <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- End Answer 4 -->
+
+
+
+                            <br>
+                            <div class="form-group text-center">
+                                <label>Workload</label>
+                                <h5>{{ mcd.workload }}</h5>
+                            </div>
+                            <div class="form-group text-center">
+                                <label>Deadline</label>
+                                <h5>{{ mcd.deadline }}</h5>
+                            </div>
+                            <br>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary mr-2">Save answer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -6,7 +6,8 @@ import { NewSingleChoiceComponent } from "./new-single-choice/new-single-choice.
 import { NewMultipleChoiceComponent } from "./new-multiple-choice/new-multiple-choice.component";
 import { EditSingleChoiceComponent } from './edit-single-choice/edit-single-choice.component';
 import { EditMultipleChoiceComponent } from './edit-multiple-choice/edit-multiple-choice.component';
-import {NewSingleChoiceAnswerComponent} from './new-single-choice-answer/new-single-choice-answer.component';
+import { NewSingleChoiceAnswerComponent } from './new-single-choice-answer/new-single-choice-answer.component';
+import { NewMultipleChoiceAnswerComponent } from './new-multiple-choice-answer/new-multiple-choice-answer.component';
 
 const routes: Routes = [
     {
@@ -56,7 +57,13 @@ const routes: Routes = [
                     title: 'Answer Singlechoice'
                 }
             },
-
+            {
+                path: 'multiple-choices/:id/answers/new',
+                component: NewMultipleChoiceAnswerComponent,
+                data: {
+                    title: 'Answer Multiplechoice'
+                }
+            },
         ]
     }
 ];

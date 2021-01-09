@@ -15,7 +15,9 @@ import { EditSingleChoiceFormComponent } from './edit-single-choice/edit-single-
 import { EditMultipleChoiceComponent } from './edit-multiple-choice/edit-multiple-choice.component';
 import { EditMultipleChoiceFormComponent } from './edit-multiple-choice/edit-multiple-choice-form/edit-multiple-choice-form.component';
 import { NewSingleChoiceAnswerComponent } from './new-single-choice-answer/new-single-choice-answer.component';
-import { NewSingleChoiceAnswerFormComponent } from './new-single-choice-answer/new-single-choice-answer-form/new-single-choice-answer-form.component'
+import { NewSingleChoiceAnswerFormComponent } from './new-single-choice-answer/new-single-choice-answer-form/new-single-choice-answer-form.component';
+import { NewMultipleChoiceAnswerComponent } from './new-multiple-choice-answer/new-multiple-choice-answer.component';
+import { NewMultipleChoiceAnswerFormComponent } from './new-multiple-choice-answer/new-multiple-choice-answer-form/new-multiple-choice-answer-form.component'
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { NewSingleChoiceAnswerFormComponent } from './new-single-choice-answer/n
     EditMultipleChoiceComponent,
     EditMultipleChoiceFormComponent,
     NewSingleChoiceAnswerComponent,
-    NewSingleChoiceAnswerFormComponent],
+    NewSingleChoiceAnswerFormComponent,
+    NewMultipleChoiceAnswerComponent,
+    NewMultipleChoiceAnswerFormComponent],
   imports: [
     CommonModule,
     FormsModule,

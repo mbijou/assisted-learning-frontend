@@ -10,6 +10,10 @@ export interface SingleChoiceInterface {
   user: number;
 }
 
+export interface SingleChoiceAnswerInterface {
+  answer: boolean;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,12 +21,16 @@ export class SingleChoiceService {
 
   constructor(private http: HttpClient) { }
 
-  getSingleChoices(id){
+  getSingleChoice(id){
     return this.http.get<SingleChoiceInterface>(`api/v1/single-choices/${id}/`);
   }
 
   createNewSingleChoice(data){
     return this.http.post<SingleChoiceInterface>("api/v1/single-choices/", data);
+  }
+
+  createNewSingleChoiceAnswer(id, data: SingleChoiceAnswerInterface){
+    return this.http.post<SingleChoiceAnswerInterface>(`api/v1/single-choices/${id}/answers/`, data);
   }
 
 }
