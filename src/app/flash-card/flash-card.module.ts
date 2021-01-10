@@ -17,7 +17,8 @@ import { EditMultipleChoiceFormComponent } from './edit-multiple-choice/edit-mul
 import { NewSingleChoiceAnswerComponent } from './new-single-choice-answer/new-single-choice-answer.component';
 import { NewSingleChoiceAnswerFormComponent } from './new-single-choice-answer/new-single-choice-answer-form/new-single-choice-answer-form.component';
 import { NewMultipleChoiceAnswerComponent } from './new-multiple-choice-answer/new-multiple-choice-answer.component';
-import { NewMultipleChoiceAnswerFormComponent } from './new-multiple-choice-answer/new-multiple-choice-answer-form/new-multiple-choice-answer-form.component'
+import { NewMultipleChoiceAnswerFormComponent } from './new-multiple-choice-answer/new-multiple-choice-answer-form/new-multiple-choice-answer-form.component';
+import { AllFlashCardsComponent } from './all-flash-cards/all-flash-cards.component'
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { NewMultipleChoiceAnswerFormComponent } from './new-multiple-choice-answ
     NewSingleChoiceAnswerComponent,
     NewSingleChoiceAnswerFormComponent,
     NewMultipleChoiceAnswerComponent,
-    NewMultipleChoiceAnswerFormComponent],
+    NewMultipleChoiceAnswerFormComponent,
+    AllFlashCardsComponent],
   imports: [
     CommonModule,
     FormsModule,

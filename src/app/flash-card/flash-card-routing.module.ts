@@ -8,6 +8,7 @@ import { EditSingleChoiceComponent } from './edit-single-choice/edit-single-choi
 import { EditMultipleChoiceComponent } from './edit-multiple-choice/edit-multiple-choice.component';
 import { NewSingleChoiceAnswerComponent } from './new-single-choice-answer/new-single-choice-answer.component';
 import { NewMultipleChoiceAnswerComponent } from './new-multiple-choice-answer/new-multiple-choice-answer.component';
+import {AllFlashCardsComponent} from './all-flash-cards/all-flash-cards.component';
 
 const routes: Routes = [
     {
@@ -62,6 +63,13 @@ const routes: Routes = [
                 component: NewMultipleChoiceAnswerComponent,
                 data: {
                     title: 'Answer Multiplechoice'
+                }
+            },
+            {
+                path: 'flashcards',
+                component: AllFlashCardsComponent,
+                data: {
+                    title: 'All Flashcards'
                 }
             },
         ]
