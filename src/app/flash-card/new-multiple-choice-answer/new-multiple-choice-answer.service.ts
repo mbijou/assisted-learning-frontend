@@ -3,12 +3,12 @@ import {HttpClient} from '@angular/common/http';
 import { MultipleChoiceInterface } from '../edit-multiple-choice/edit-multiple-choice.service';
 
 
-export interface MultipleChoiceAnswerSet {
+export interface MultipleChoiceAnswerSetInterface {
   multiplechoicesolutionanswer_set: MultipleChoiceAnswerInterface[];
 }
 
 export interface MultipleChoiceAnswerInterface {
-  id: number;
+  solution: number;
   answer: boolean;
 }
 
@@ -24,8 +24,8 @@ export class NewMultipleChoiceAnswerService {
     return this.http.get<MultipleChoiceInterface>(`api/v1/multiple-choices/${id}/`);
   }
 
-  createNewMultipleChoiceAnswer(id, data: MultipleChoiceAnswerSet){
-    return this.http.post<MultipleChoiceAnswerSet>(`api/v1/multiple-choices/${id}/answers/`, data);
+  createNewMultipleChoiceAnswer(id, data: MultipleChoiceAnswerSetInterface){
+    return this.http.post<MultipleChoiceAnswerSetInterface>(`api/v1/multiple-choices/${id}/answers/`, data);
   }
 
 }

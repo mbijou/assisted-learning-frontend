@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NewMultipleChoiceAnswerService } from '../new-multiple-choice-answer.service';
+import {MultipleChoiceAnswerSetInterface, NewMultipleChoiceAnswerService} from '../new-multiple-choice-answer.service';
 import { MultipleChoiceInterface } from '../../edit-multiple-choice/edit-multiple-choice.service';
+
 
 @Component({
   selector: 'app-new-multiple-choice-answer-form',
@@ -53,18 +54,53 @@ export class NewMultipleChoiceAnswerFormComponent implements OnInit {
           this.multipleChoiceData.solution_set = data.solution_set;
 
           this.changeDetector.detectChanges();
-        },
-        errors =>{
-
-          // TODO Errors machen, onSubmit einrichten. Backend logik für bearbeiten Mitten drin
         }
     );
 
   }
 
+  handleMultipleChoiceAnswerSetErrors(errors){
+    for(let index in errors["error"]["multiplechoicesolutionanswer_set"]){
+      if(errors["error"]["multiplechoicesolutionanswer_set"].hasOwnProperty(index)) {
+        let errorObject = errors["error"]["multiplechoicesolutionanswer_set"][index];
+        if("answer" in errorObject){
+          let answerKey = "answer" + (parseInt(index)+1).toString();
+          this.multipleChoiceAnswerForm.controls[answerKey].setErrors(
+              {serverErrors: errorObject["answer"]}
+          );
+        }
+      }
+    }
+  }
+
   onSubmit(){
 
+    let formData: MultipleChoiceAnswerSetInterface = {
+      "multiplechoicesolutionanswer_set": [
+        {"solution": this.multipleChoiceData.solution_set[0].id, "answer": this.multipleChoiceAnswerForm.controls["answer1"].value},
+        {"solution": this.multipleChoiceData.solution_set[1].id, "answer": this.multipleChoiceAnswerForm.controls["answer2"].value},
+        {"solution": this.multipleChoiceData.solution_set[2].id, "answer": this.multipleChoiceAnswerForm.controls["answer3"].value},
+        {"solution": this.multipleChoiceData.solution_set[3].id, "answer": this.multipleChoiceAnswerForm.controls["answer4"].value},
+      ]
+    }
+
+    this.newMultipleChoiceAnswerService.createNewMultipleChoiceAnswer(this.multipleChoiceId, formData).subscribe(
+        data => {
+          this.multipleChoiceAnswerFormSubmitted = true;
+          this.router.navigate(['/dashboard/']);
+        },
+        errors =>{
+          this.multipleChoiceAnswerFormSubmitted = true;
+
+          this.handleMultipleChoiceAnswerSetErrors(errors);
+
+          this.changeDetector.detectChanges();
+          // TODO Backend logik für bearbeiten Mitten drin
+        }
+    );
 
   }
+
+
 
 }
