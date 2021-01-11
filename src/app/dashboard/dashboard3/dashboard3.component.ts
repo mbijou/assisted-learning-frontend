@@ -36,9 +36,9 @@ export class Dashboard3Component implements OnInit {
           this.flashcard.rank = data[0].rank;
 
           if(this.flashcard.type == "singlechoice"){
-            this.flashcard.answer_url = `/flashcards/single-choices/${this.flashcard.object_id}/answers/new`
+            this.flashcard.answer_url = `/flashcards/single-choices/${this.flashcard.object_id}/answers/new`;
           }else if(this.flashcard.type == "multiplechoice"){
-            this.flashcard.answer_url = `/flashcards/multiple-choices/${this.flashcard.object_id}/answers/new`
+            this.flashcard.answer_url = `/flashcards/multiple-choices/${this.flashcard.object_id}/answers/new`;
           }
 
 

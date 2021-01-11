@@ -31,17 +31,20 @@ export class AllFlashCardsComponent implements OnInit {
             let flashcard = data[flashcard_key];
             if(flashcard.type == "singlechoice"){
               flashcard.edit_url = `/flashcards/single-choices/${flashcard.object_id}/edit`;
+              flashcard.answer_url = `/flashcards/single-choices/${flashcard.object_id}/answers/new`;
             }
             else if(flashcard.type == "multiplechoice"){
               flashcard.edit_url = `/flashcards/multiple-choices/${flashcard.object_id}/edit`;
+              flashcard.answer_url = `/flashcards/multiple-choices/${flashcard.object_id}/answers/new`;
             }
             this.flashCardSetData.flashcards.push(flashcard);
           }
           console.warn(this.flashCardSetData);
 
-          // TODO 1 Delete Button oben rechts im edit form,
+          // TODO TYPEN NAMEN ANZEIGEn
+          // TODO LOGIK IM BACKEND FÜR ABARBEITEN MITTEN DRIN
+          // TODO PAGINATION
           // TODO 2 dashboard orange, rot anzeigen,
-          // TODO 3 Back button von Edit zur view all
 
           this.changeDetector.detectChanges();
         }

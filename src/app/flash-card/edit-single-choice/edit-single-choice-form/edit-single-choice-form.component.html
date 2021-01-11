@@ -2,8 +2,11 @@
     <div class="row match-height">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex">
                     <h4 class="card-title">Edit Single Choice</h4>
+                    <div class="ml-auto">
+                        <app-delete-single-choice></app-delete-single-choice>
+                    </div>
                 </div>
                 <div class="card-content">
                     <div class="card-body">
@@ -81,8 +84,10 @@
                                     </p>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+                                <a class="ml-auto btn btn-secondary" [routerLink]="['/flashcards/flashcards']">Back to Overview</a>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -53,6 +53,9 @@
                                     </div>
                                 </div>
                                 <div class="card-body"></div>
+                                <div class="card-footer text-center">
+                                    <a href="{{flashcard.answer_url}}" class="font-medium-3 btn text-white btn-dark">Start Task &nbsp;<i class="ft-corner-down-right"></i></a>
+                                </div>
                             </div>
                         </div>
                         <div *ngIf="!flashcard.id" class="col-md-8 offset-md-2 white text-center">No entry found</div>
@@ -93,7 +96,8 @@
             </div>
 
 
-            <div class="col-12 text-right" style="padding-bottom: 1em; padding-right: 2em">
+            <div class="col-12 text-center" style="padding-bottom: 1em;">
+                <br>
                 <a class="font-medium-2 text-white" [routerLink]="['/flashcards/flashcards']"><u>View all Flashcards</u></a>
             </div>
 

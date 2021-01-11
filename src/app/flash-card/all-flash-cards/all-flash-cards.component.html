@@ -17,24 +17,41 @@
                     <!--BEGIN KARTEIKARTE-->
 
                     <div *ngFor="let flashcard of fcsd.flashcards" class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="card bg-warning white" style="min-height: 250px !important; position: relative;">
+                        <div class="card bg-warning white" style="min-height: 350px !important;">
+
                             <div class="card-content">
+
                                 <div class="card-header">
                                     <div class="card-title text-center">
-                                        <a class="text-white">
+                                        <a href="{{ flashcard.answer_url }}" class="text-white">
                                             {{ flashcard.question }}
                                         </a>
                                     </div>
                                 </div>
-                                <div class="card-body"></div>
-                                <div style="position:absolute; bottom: 10px; right: 15px;">
-                                    <a class="font-medium-2 text-white" href="{{flashcard.edit_url}}">
-                                        <i class="ft-edit" style="font-size: 2rem !important;"></i>
-                                    </a>
+
+
+
+                            </div>
+                            <div class="mt-auto">
+                                <div class="row ">
+                                    <div class="col-12" style="padding: 1em">
+                                        <a href="{{flashcard.answer_url}}" class="font-medium-3 btn text-white btn-dark btn-sm">
+                                            Start Task &nbsp;
+                                            <i class="ft-corner-down-right">
+                                            </i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row text-right">
+                                    <div class="col-12" style="padding-bottom: 1.2em; padding-right: 2em">
+                                        <a class="font-medium-2 text-white" href="{{flashcard.edit_url}}">
+                                            <i class="ft-edit" style="font-size: 2rem !important;"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
 
                     <div *ngIf="fcsd.flashcards.length == 0" class="col-md-8 offset-md-2 white text-center">No entry found</div>
@@ -45,8 +62,8 @@
         </div>
 
 
-        <div class="col-12 text-right" style="padding-bottom: 1em; padding-right: 2em">
-            <a class="font-medium-2 text-white" [routerLink]="['/dashboard']"><u>Back to Dashboard</u></a>
+        <div class="col-12 text-right" style="padding-bottom: 1.5em; padding-right: 2em">
+            <a class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</a>
         </div>
 
 

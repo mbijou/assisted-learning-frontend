@@ -33,4 +33,8 @@ export class SingleChoiceService {
     return this.http.post<SingleChoiceAnswerInterface>(`api/v1/single-choices/${id}/answers/`, data);
   }
 
+  deleteSingleChoice(id){
+    return this.http.delete(`api/v1/single-choices/${id}/`);
+  }
+
 }
