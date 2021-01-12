@@ -111,7 +111,10 @@ export class NewSingleChoiceFormComponent implements OnInit {
         data => {
 
           this.singleChoiceFormSubmitted = true;
-          this.router.navigate(['/flashcards/single-choices/' + data["id"] + '/edit/']);
+          this.router.navigate(['/flashcards/single-choices/' + data["id"] + '/edit/'],
+              { queryParams: {next: "/flashcards/new"}
+              }
+          );
 
         },
         errors => {

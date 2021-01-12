@@ -13,6 +13,9 @@ export class AllFlashCardsComponent implements OnInit {
     "flashcards": [],
   };
 
+  nextPage = null;
+  previousPage = null;
+
   get fcsd(){
     return this.flashCardSetData;
   }
@@ -21,34 +24,58 @@ export class AllFlashCardsComponent implements OnInit {
       private flashCardService:FlashCardService,
       private changeDetector: ChangeDetectorRef,) { }
 
-  ngOnInit(): void {
+  getPreviousFlashcards(){
+    if(this.previousPage){
+      this.getFlashcards(this.previousPage);
+    }
+  }
 
+  getNextFlashcards(){
+    if(this.nextPage){
+      this.getFlashcards(this.nextPage);
+    }
+  }
 
-    this.flashCardService.getFlashCards().subscribe(
+  getFlashcards(url=null){
+    this.flashCardService.getFlashCards(url).subscribe(
         data => {
+          this.flashCardSetData = {"flashcards": []};
+          let results = data.results;
 
-          for(let flashcard_key in data){
-            let flashcard = data[flashcard_key];
+          this.nextPage = data.next;
+          this.previousPage = data.previous;
+
+          for(let flashcard_key in results){
+            let flashcard = results[flashcard_key];
             if(flashcard.type == "singlechoice"){
               flashcard.edit_url = `/flashcards/single-choices/${flashcard.object_id}/edit`;
               flashcard.answer_url = `/flashcards/single-choices/${flashcard.object_id}/answers/new`;
+              flashcard.type = "Single Choice";
             }
             else if(flashcard.type == "multiplechoice"){
               flashcard.edit_url = `/flashcards/multiple-choices/${flashcard.object_id}/edit`;
               flashcard.answer_url = `/flashcards/multiple-choices/${flashcard.object_id}/answers/new`;
+              flashcard.type = "Multiple Choice";
             }
             this.flashCardSetData.flashcards.push(flashcard);
           }
           console.warn(this.flashCardSetData);
 
-          // TODO TYPEN NAMEN ANZEIGEn
-          // TODO LOGIK IM BACKEND FÜR ABARBEITEN MITTEN DRIN
-          // TODO PAGINATION
+          // TODO TYPEN NAMEN ANZEIGEn,
+          // TODO PAGINATION,
           // TODO 2 dashboard orange, rot anzeigen,
+          // TODO DOKU ANFANGEN
+          // TODO LERNVORSCHRITT
+          // TODO LERNGRUPPE
 
           this.changeDetector.detectChanges();
         }
     );
+  }
+
+  ngOnInit(): void {
+
+    this.getFlashcards();
 
 
   }

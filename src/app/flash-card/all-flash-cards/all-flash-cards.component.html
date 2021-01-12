@@ -1,11 +1,22 @@
 <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <div class="row no-gutters text-center">
-                <div class="col-12">
+            <div class="row no-gutters">
+                <div class="col-4 text-left">
+                    <a (click)="getPreviousFlashcards()" class="btn btn-lg" [ngClass]="{'btn-success': previousPage,
+                                                                                        'btn-secondary': !previousPage }">
+                        <i class="ft-chevron-left"></i>Previous
+                    </a>
+                </div>
+                <div class="col-4 text-center">
                     <h4 class="card-title">
-                        Your current Task
+                        All Flashcards
                     </h4>
+                </div>
+                <div class="col-4 text-right">
+                    <a (click)="getNextFlashcards()" class="btn btn-lg" [ngClass]="{'btn-success': nextPage,
+                                                                                    'btn-secondary': !nextPage }">
+                        Next<i class="ft-chevron-right"></i></a>
                 </div>
             </div>
         </div>
@@ -23,15 +34,14 @@
 
                                 <div class="card-header">
                                     <div class="card-title text-center">
-                                        <a href="{{ flashcard.answer_url }}" class="text-white">
+                                        <a href="{{ flashcard.answer_url }}" class="text-white crop-text">
                                             {{ flashcard.question }}
                                         </a>
                                     </div>
                                 </div>
 
-
-
                             </div>
+
                             <div class="mt-auto">
                                 <div class="row ">
                                     <div class="col-12" style="padding: 1em">
@@ -40,6 +50,10 @@
                                             <i class="ft-corner-down-right">
                                             </i>
                                         </a>
+                                        <br><br>
+                                        <p>
+                                            <b>Type:</b> {{ flashcard.type }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="row text-right">
@@ -63,7 +77,7 @@
 
 
         <div class="col-12 text-right" style="padding-bottom: 1.5em; padding-right: 2em">
-            <a class="btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</a>
+            <a class="btn btn-outline-info btn-lg" [routerLink]="['/dashboard']">Back to Dashboard</a>
         </div>
 
 

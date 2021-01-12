@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
+export interface FlashCadEndPoinInterface {
+  count: number;
+  next: string;
+  previous: string;
+  results: FlashCardInterface[];
+}
+
 export interface FlashCardSetInterface {
   flashcards: FlashCardInterface[];
 }
@@ -30,8 +38,14 @@ export class FlashCardService {
     return this.http.get<FlashCardInterface[]>(`api/v1/users/${this.user_id}/flashcards/rank-one-flashcards/`);
   }
 
-  getFlashCards(){
-    return this.http.get<FlashCardInterface[]>(`api/v1/users/${this.user_id}/flashcards/`);
+  getFlashCards(url=null){
+    if(url){
+      return this.http.get<FlashCadEndPoinInterface>(url);
+    }
+    else{
+      return this.http.get<FlashCadEndPoinInterface>(`api/v1/users/${this.user_id}/flashcards/`);
+    }
+
   }
 
 }

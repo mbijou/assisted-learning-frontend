@@ -81,6 +81,7 @@ export class EditMultipleChoiceFormComponent implements OnInit {
 
   id;
   solutionSetIds = {"solution1": null, "solution2": null, "solution3": null, "solution4": null};
+  next = '/flashcards/flashcards';
 
   constructor(
       private router: Router,
@@ -90,9 +91,13 @@ export class EditMultipleChoiceFormComponent implements OnInit {
       public datePipe: DatePipe
   ) { }
 
-
-
   ngOnInit(): void {
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if(params['next']){
+        this.next = params['next'];
+      }
+    });
 
     this.id = this.activatedRoute.snapshot.params["id"];
 

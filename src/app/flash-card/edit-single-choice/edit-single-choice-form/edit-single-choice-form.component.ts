@@ -72,6 +72,7 @@ export class EditSingleChoiceFormComponent implements OnInit {
   // FORM Ends
 
   id;
+  next: string = '/flashcards/flashcards';
 
   constructor(
       private router: Router,
@@ -82,6 +83,14 @@ export class EditSingleChoiceFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+      console.warn(this.next);
+
+    this.activatedRoute.queryParams.subscribe(params => {
+        if(params['next']){
+            this.next = params['next'];
+        }
+    });
 
     this.id = this.activatedRoute.snapshot.params["id"];
 
@@ -129,9 +138,7 @@ export class EditSingleChoiceFormComponent implements OnInit {
         data => {
 
           this.singleChoiceFormSubmitted = true;
-          console.warn('/single-choices/' + this.id + '/edit/');
           this.router.navigate(['/flashcards/single-choices/' + this.id + '/edit/']);
-
 
         },
         errors => {
