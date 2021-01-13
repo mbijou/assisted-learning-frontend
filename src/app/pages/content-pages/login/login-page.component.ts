@@ -65,7 +65,7 @@ export class LoginPageComponent {
             localStorage.setItem("user_last_name", data.user.last_name);
             localStorage.setItem("user_email", data.user.email);
 
-            this.router.navigate(['/dashboard/dashboard1']);
+            this.router.navigate(['/dashboard']);
       },
       err => {
             this.isLoginFailed = true;

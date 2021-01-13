@@ -56,7 +56,8 @@ const routes: Routes = [
                 component: NewSingleChoiceAnswerComponent,
                 data: {
                     title: 'Answer Singlechoice'
-                }
+                },
+                pathMatch: 'full',
             },
             {
                 path: 'multiple-choices/:id/answers/new',

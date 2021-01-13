@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
-export interface FlashCadEndPoinInterface {
+export interface FlashCadEndPointInterface {
   count: number;
   next: string;
   previous: string;
@@ -23,6 +23,8 @@ export interface FlashCardInterface {
   rank: number;
   answer_url: string;
   edit_url: string;
+  status: string;
+  bootstrap_color: string;
 }
 
 @Injectable({
@@ -40,10 +42,10 @@ export class FlashCardService {
 
   getFlashCards(url=null){
     if(url){
-      return this.http.get<FlashCadEndPoinInterface>(url);
+      return this.http.get<FlashCadEndPointInterface>(url);
     }
     else{
-      return this.http.get<FlashCadEndPoinInterface>(`api/v1/users/${this.user_id}/flashcards/`);
+      return this.http.get<FlashCadEndPointInterface>(`api/v1/users/${this.user_id}/flashcards/`);
     }
 
   }

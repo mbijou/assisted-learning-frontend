@@ -87,7 +87,7 @@ export class NewSingleChoiceFormComponent implements OnInit {
 
   getFormattedDeadline(deadline){
     if(deadline && deadline.day && deadline.month && deadline.year){
-      deadline = new Date(deadline.year, deadline.month, deadline.day);
+      deadline = new Date(deadline.year, deadline.month-1, deadline.day);
       deadline = this.datePipe.transform(deadline, 'yyyy-MM-dd');
     }
     return deadline;

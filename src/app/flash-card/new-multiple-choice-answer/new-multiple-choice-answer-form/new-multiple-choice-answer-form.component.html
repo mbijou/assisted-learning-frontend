@@ -119,6 +119,13 @@
                                 <h5>{{ mcd.deadline }}</h5>
                             </div>
                             <br>
+                            <div *ngIf="multipleChoiceAnswerFormSubmitted && formErrors"
+                                 class="help-block mt-1 text-danger text-center">
+                                <p *ngFor="let error_msg of formErrors.serverErrors">
+                                    <i class="ft-alert-circle align-middle"></i> {{ error_msg }}
+                                </p>
+                            </div>
+                            <br>
                             <div class="d-flex">
                                 <button type="submit" class="btn btn-primary mr-2">Save answer</button>
                                 <a class="ml-auto btn btn-secondary" [routerLink]="['/dashboard']">Back to Dashboard</a>

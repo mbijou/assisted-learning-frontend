@@ -49,20 +49,18 @@ export class AllFlashCardsComponent implements OnInit {
             let flashcard = results[flashcard_key];
             if(flashcard.type == "singlechoice"){
               flashcard.edit_url = `/flashcards/single-choices/${flashcard.object_id}/edit`;
-              flashcard.answer_url = `/flashcards/single-choices/${flashcard.object_id}/answers/new`;
+              flashcard.answer_url = '/flashcards/single-choices';
               flashcard.type = "Single Choice";
             }
             else if(flashcard.type == "multiplechoice"){
               flashcard.edit_url = `/flashcards/multiple-choices/${flashcard.object_id}/edit`;
-              flashcard.answer_url = `/flashcards/multiple-choices/${flashcard.object_id}/answers/new`;
+              flashcard.answer_url = '/flashcards/multiple-choices';
               flashcard.type = "Multiple Choice";
             }
             this.flashCardSetData.flashcards.push(flashcard);
           }
-          console.warn(this.flashCardSetData);
-
-          // TODO TYPEN NAMEN ANZEIGEn,
-          // TODO PAGINATION,
+          // TODO BACK BUTTON FÜR view all multiple choice
+          // TODO CHART JS
           // TODO 2 dashboard orange, rot anzeigen,
           // TODO DOKU ANFANGEN
           // TODO LERNVORSCHRITT

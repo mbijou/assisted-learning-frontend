@@ -17,7 +17,8 @@ export class Dashboard3Component implements OnInit {
 
   flashcard: FlashCardInterface = {
     "id": null, "question": null, "deadline": null, "workload": null,
-    "type": null, "object_id": null, "rank": null, "answer_url": null, "edit_url": null,
+    "type": null, "object_id": null, "rank": null, "answer_url": null,
+      "edit_url": null, "status": null, "bootstrap_color": null,
   };
 
   ngOnInit(): void {

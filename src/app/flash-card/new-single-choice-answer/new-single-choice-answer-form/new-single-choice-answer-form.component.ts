@@ -4,6 +4,8 @@ import {ActivatedRoute } from '@angular/router';
 import {SingleChoiceInterface} from '../../single-choice.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {data} from '../../../shared/data/smart-data-table';
+import {getParams} from 'swiper/angular/angular/src/utils/get-params';
 
 
 @Component({
@@ -15,6 +17,8 @@ export class NewSingleChoiceAnswerFormComponent implements OnInit {
 
   private singleChoiceId;
   singleChoiceAnswerFormSubmitted = false;
+  formErrors = {"serverErrors": null};
+  next = '/dashboard';
 
   singleChoiceAnswerForm = new FormGroup({
       answer: new FormControl(null,[Validators.required]),
@@ -42,28 +46,34 @@ export class NewSingleChoiceAnswerFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.singleChoiceId = this.activatedRoute.snapshot.params["id"];
+      this.activatedRoute.queryParams.subscribe(params => {
+          if(params['next']){
+              this.next = params['next'];
+          }
+      });
 
-    this.singleChoiceService.getSingleChoice(this.singleChoiceId).subscribe(
+        this.singleChoiceId = this.activatedRoute.snapshot.params["id"];
+
+        this.singleChoiceService.getSingleChoice(this.singleChoiceId).subscribe(
         data => {
 
-          this.singleChoiceData.question = data.question;
-          this.singleChoiceData.workload = data.workload;
-          this.singleChoiceData.deadline = data.deadline;
-          this.singleChoiceData.solution = data.solution;
-          this.singleChoiceData.user = data.user;
+            this.singleChoiceData.question = data.question;
+            this.singleChoiceData.workload = data.workload;
+            this.singleChoiceData.deadline = data.deadline;
+            this.singleChoiceData.solution = data.solution;
+            this.singleChoiceData.user = data.user;
 
-          // TODO
-          this.changeDetector.detectChanges();
+            // TODO
+            this.changeDetector.detectChanges();
 
         }
-    );
+        );
   }
 
   onSubmit(){
+      this.formErrors.serverErrors = null;
 
       let data: SingleChoiceAnswerInterface = {"answer": this.singleChoiceAnswerForm.controls["answer"].value}
-
 
       this.singleChoiceService.createNewSingleChoiceAnswer(this.singleChoiceId, data).subscribe(
           data => {
@@ -75,11 +85,15 @@ export class NewSingleChoiceAnswerFormComponent implements OnInit {
               this.singleChoiceAnswerFormSubmitted = true;
 
               for(let key in errors["error"]){
-                  if(errors["error"].hasOwnProperty(key)){
+                  if(errors["error"].hasOwnProperty(key) && this.singleChoiceAnswerForm.controls.hasOwnProperty(key)){
                       this.singleChoiceAnswerForm.controls[key].setErrors(
                           { serverErrors: errors["error"][key] }
                       );
                   }
+              }
+
+              if(errors["error"].hasOwnProperty("non_field_errors")){
+                this.formErrors = {"serverErrors": errors["error"]["non_field_errors"]};
               }
 
               this.changeDetector.detectChanges();

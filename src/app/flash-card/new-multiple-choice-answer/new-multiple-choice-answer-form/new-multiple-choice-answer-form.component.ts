@@ -14,6 +14,7 @@ export class NewMultipleChoiceAnswerFormComponent implements OnInit {
 
   private multipleChoiceId;
   multipleChoiceAnswerFormSubmitted = false;
+  formErrors = {"serverErrors": null};
 
   multipleChoiceAnswerForm = new FormGroup({
     answer1: new FormControl(null, [Validators.required]),
@@ -75,6 +76,8 @@ export class NewMultipleChoiceAnswerFormComponent implements OnInit {
 
   onSubmit(){
 
+    this.formErrors.serverErrors = null;
+
     let formData: MultipleChoiceAnswerSetInterface = {
       "multiplechoicesolutionanswer_set": [
         {"solution": this.multipleChoiceData.solution_set[0].id, "answer": this.multipleChoiceAnswerForm.controls["answer1"].value},
@@ -94,8 +97,11 @@ export class NewMultipleChoiceAnswerFormComponent implements OnInit {
 
           this.handleMultipleChoiceAnswerSetErrors(errors);
 
+          if(errors["error"].hasOwnProperty("non_field_errors")){
+            this.formErrors = {"serverErrors": errors["error"]["non_field_errors"]};
+          }
+
           this.changeDetector.detectChanges();
-          // TODO Backend logik für bearbeiten Mitten drin
         }
     );
 

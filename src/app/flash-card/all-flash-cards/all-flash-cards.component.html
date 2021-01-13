@@ -28,24 +28,25 @@
                     <!--BEGIN KARTEIKARTE-->
 
                     <div *ngFor="let flashcard of fcsd.flashcards" class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="card bg-warning white" style="min-height: 350px !important;">
+                        <div class="card bg-{{flashcard.bootstrap_color}} white" style="min-height: 350px !important;">
 
                             <div class="card-content">
 
                                 <div class="card-header">
                                     <div class="card-title text-center">
-                                        <a href="{{ flashcard.answer_url }}" class="text-white crop-text">
+                                        <a [routerLink]="[flashcard.answer_url, flashcard.object_id, 'answers', 'new']"
+                                           [queryParams]="{next: '/flashcards/flashcards'}" class="text-white crop-text">
                                             {{ flashcard.question }}
                                         </a>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="mt-auto">
                                 <div class="row ">
                                     <div class="col-12" style="padding: 1em">
-                                        <a href="{{flashcard.answer_url}}" class="font-medium-3 btn text-white btn-dark btn-sm">
+                                        <a [routerLink]="[flashcard.answer_url, flashcard.object_id, 'answers', 'new']"
+                                           [queryParams]="{next: '/flashcards/flashcards'}" class="font-medium-3 btn text-white btn-dark btn-sm">
                                             Start Task &nbsp;
                                             <i class="ft-corner-down-right">
                                             </i>
