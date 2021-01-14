@@ -63,7 +63,6 @@ export class NewSingleChoiceAnswerFormComponent implements OnInit {
             this.singleChoiceData.solution = data.solution;
             this.singleChoiceData.user = data.user;
 
-            // TODO
             this.changeDetector.detectChanges();
 
         }

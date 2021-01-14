@@ -15,6 +15,7 @@ export class NewMultipleChoiceAnswerFormComponent implements OnInit {
   private multipleChoiceId;
   multipleChoiceAnswerFormSubmitted = false;
   formErrors = {"serverErrors": null};
+  next = '/dashboard';
 
   multipleChoiceAnswerForm = new FormGroup({
     answer1: new FormControl(null, [Validators.required]),
@@ -43,6 +44,12 @@ export class NewMultipleChoiceAnswerFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      if(params['next']){
+        this.next = params['next'];
+      }
+    });
 
     this.multipleChoiceId = this.activatedRoute.snapshot.params["id"];
 

@@ -14,12 +14,17 @@ import { Dashboard2Component } from "./dashboard2/dashboard2.component";
 import { NgSelectModule } from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
 import { Dashboard3Component } from './dashboard3/dashboard3.component';
+import { ProgressChartComponent } from './progress-chart/progress-chart.component';
+import {ChartsRoutingModule} from '../charts/charts-routing.module';
+import {ChartsModule} from 'ng2-charts';
 
 
 @NgModule({
     imports: [
         CommonModule,
         DashboardRoutingModule,
+        ChartsRoutingModule,
+        ChartsModule,
         ChartistModule,
         NgbModule,
         MatchHeightModule,
@@ -32,7 +37,8 @@ import { Dashboard3Component } from './dashboard3/dashboard3.component';
     declarations: [
         Dashboard1Component,
         Dashboard2Component,
-        Dashboard3Component
+        Dashboard3Component,
+        ProgressChartComponent
     ],
     providers: [],
 })

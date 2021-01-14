@@ -59,9 +59,8 @@ export class AllFlashCardsComponent implements OnInit {
             }
             this.flashCardSetData.flashcards.push(flashcard);
           }
-          // TODO BACK BUTTON FÜR view all multiple choice
+
           // TODO CHART JS
-          // TODO 2 dashboard orange, rot anzeigen,
           // TODO DOKU ANFANGEN
           // TODO LERNVORSCHRITT
           // TODO LERNGRUPPE
