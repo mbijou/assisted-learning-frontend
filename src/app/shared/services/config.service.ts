@@ -40,6 +40,30 @@ export class ConfigService {
 
   // Default configurations for Light layout. Please check *customizer.service.ts* for different colors and bg images options
 
+  // setConfigValue() {
+  //   return this.templateConf = {
+  //     layout: {
+  //       variant: "Dark",
+  //       menuPosition: "Top",
+  //       customizer: {
+  //         hidden: true
+  //       },
+  //       navbar: {
+  //         type: 'Static'
+  //       },
+  //       sidebar: {
+  //         collapsed: false,
+  //         size: "sidebar-md",
+  //         backgroundColor: "man-of-steel",
+  //         backgroundImage: true,
+  //         backgroundImageURL: "assets/img/sidebar-bg/01.jpg"
+  //       }
+  //     }
+  //   };
+  // }
+
+  // Default configurations for Dark layout. Please check *customizer.service.ts* for different colors and bg images options
+
   setConfigValue() {
     return this.templateConf = {
       layout: {
@@ -54,37 +78,13 @@ export class ConfigService {
         sidebar: {
           collapsed: false,
           size: "sidebar-md",
-          backgroundColor: "man-of-steel",
-          backgroundImage: true,
+          backgroundColor: "black",
+          backgroundImage: false,
           backgroundImageURL: "assets/img/sidebar-bg/01.jpg"
         }
       }
     };
   }
-
-  // Default configurations for Dark layout. Please check *customizer.service.ts* for different colors and bg images options
-
-  // setConfigValue() {
-  //   return this.templateConf = {
-  //     layout: {
-  //       variant: "Dark",
-  //       menuPosition: "Side",
-  //       customizer: {
-  //         hidden: true
-  //       },
-  //       navbar: {
-  //         type: 'Static'
-  //       },
-  //       sidebar: {
-  //         collapsed: false,
-  //         size: "sidebar-md",
-  //         backgroundColor: "black",
-  //         backgroundImage: true,
-  //         backgroundImageURL: "assets/img/sidebar-bg/01.jpg"
-  //       }
-  //     }
-  //   };
-  // }
 
   // Default configurations for Transparent layout. Please check *customizer.service.ts* for different colors and bg images options
 

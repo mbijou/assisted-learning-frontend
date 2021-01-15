@@ -1,4 +1,48 @@
-<div id="pie-chart1" class="height-400">
-    <canvas baseChart class="chart" [data]="pieChartData" [labels]="pieChartLabels" [options]="pieChartOptions" [chartType]="pieChartType" (chartHover)="chartHovered($event)" [colors]="pieChartColors"
-            (chartClick)="chartClicked($event)"></canvas>
+<div class="row">
+
+    <div class="col-6">
+        <h4 class="card-title">Current Progress</h4>
+        <br>
+        <div id="pie-chart1" class="height-400">
+            <canvas baseChart class="chart" [data]="pieChartData" [labels]="pieChartLabels" [options]="pieChartOptions"
+                    [chartType]="pieChartType" (chartHover)="chartHovered($event)" [colors]="pieChartColors"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+    </div>
+
+
+    <div class="col-6 text-left">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="pb-0 text-center">
+                    <span class="font-medium-2 text-white">Total Flashcards</span>
+                    <h3 class="font-large-2 mt-2">{{progressAmounts.amount_flashcards_total}}</h3>
+                    <br><br>
+                </div>
+            </div>
+
+
+
+            <div class="col-12">
+                <div class="pb-0 text-center">
+                    <span class="font-medium-2 success">Flashcards Done</span>
+                    <h3 class="font-large-2 mt-2">{{progressAmounts.amount_flashcards_done}}</h3>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="pb-0 text-center">
+                    <span class="font-medium-2 warning">Flashcards Open</span>
+                    <h3 class="font-large-2 mt-2">{{progressAmounts.amount_flashcards_open}}</h3>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="pb-0 text-center">
+                    <span class="font-medium-2 danger">Flashcards Expired</span>
+                    <h3 class="font-large-2 mt-2">{{progressAmounts.amount_flashcards_expired}}</h3>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

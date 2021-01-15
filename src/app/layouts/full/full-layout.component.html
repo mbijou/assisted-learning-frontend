@@ -9,15 +9,15 @@
   <!-- *TOP* Menu ends -->
 
   <!-- *SIDE* Menu starts -->
-  <div appSidebar *ngIf="menuPosition === 'Side' || displayOverlayMenu"
-    [ngClass]="{'main-menu': menuPosition === 'Side' || displayOverlayMenu, 'menu-fixed': menuPosition === 'Side' || displayOverlayMenu, 'menu-native-scroll': !perfectScrollbarEnable }" class="app-sidebar"
-    (mouseenter)="sidebarMouseenter($event)" (mouseleave)="sidebarMouseleave($event)" data-active-color="white"
-    [attr.data-background-color]="config?.layout.variant === 'Transparent' ? 'black': bgColor"
-    [attr.data-image]="bgImage">
-    <app-sidebar></app-sidebar>
-    <div class="sidebar-background" [ngStyle]="{'background-image': 'url(' + bgImage + ')'}"
-      *ngIf="config?.layout.sidebar.backgroundImage"></div>
-  </div>
+<!--  <div appSidebar *ngIf="menuPosition === 'Side' || displayOverlayMenu"-->
+<!--    [ngClass]="{'main-menu': menuPosition === 'Side' || displayOverlayMenu, 'menu-fixed': menuPosition === 'Side' || displayOverlayMenu, 'menu-native-scroll': !perfectScrollbarEnable }" class="app-sidebar"-->
+<!--    (mouseenter)="sidebarMouseenter($event)" (mouseleave)="sidebarMouseleave($event)" data-active-color="white"-->
+<!--    [attr.data-background-color]="config?.layout.variant === 'Transparent' ? 'black': bgColor"-->
+<!--    [attr.data-image]="bgImage">-->
+<!--    <app-sidebar></app-sidebar>-->
+<!--    <div class="sidebar-background" [ngStyle]="{'background-image': 'url(' + bgImage + ')'}"-->
+<!--      *ngIf="config?.layout.sidebar.backgroundImage"></div>-->
+<!--  </div>-->
   <!-- *SIDE* Menu ends -->
 
   <div class="main-panel">
@@ -38,6 +38,6 @@
   <!-- *NOTIFICATION-SIDEBAR* ends -->
 
   <!-- *CUSTOMIZER* starts -->
-  <app-customizer></app-customizer>
+<!--  <app-customizer></app-customizer>-->
   <!-- *CUSTOMIZER* ends -->
 </div>

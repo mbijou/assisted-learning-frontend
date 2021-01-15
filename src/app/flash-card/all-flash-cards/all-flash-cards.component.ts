@@ -60,7 +60,6 @@ export class AllFlashCardsComponent implements OnInit {
             this.flashCardSetData.flashcards.push(flashcard);
           }
 
-          // TODO CHART JS
           // TODO DOKU ANFANGEN
           // TODO LERNVORSCHRITT
           // TODO LERNGRUPPE
