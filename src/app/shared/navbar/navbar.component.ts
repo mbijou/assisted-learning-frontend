@@ -134,7 +134,7 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
       this.logoUrl = 'assets/img/logo-dark.png';
     }
     else {
-      this.logoUrl = 'assets/img/logo.png';
+      this.logoUrl = 'assets/img/logo2.png';
     }
 
     if (this.config.layout.variant === "Transparent") {
