@@ -22,8 +22,8 @@ export class Dashboard3Component implements OnInit {
   };
 
   ngOnInit(): void {
-
-    this.flashCardService.getRankOneFlashCards().subscribe(
+    let user_id = localStorage.getItem("user_id");
+    this.flashCardService.getRankOneFlashCards(user_id).subscribe(
         data => {
           if(data.length == 0){
             return;

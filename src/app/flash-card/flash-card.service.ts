@@ -32,20 +32,18 @@ export interface FlashCardInterface {
 })
 export class FlashCardService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  user_id = localStorage.getItem("user_id");
-
-  getRankOneFlashCards(){
-    return this.http.get<FlashCardInterface[]>(`api/v1/users/${this.user_id}/flashcards/rank-one-flashcards/`);
+  getRankOneFlashCards(user_id){
+    return this.http.get<FlashCardInterface[]>(`api/v1/users/${user_id}/flashcards/rank-one-flashcards/`);
   }
 
-  getFlashCards(url=null){
+  getFlashCards(url=null, user_id){
     if(url){
       return this.http.get<FlashCadEndPointInterface>(url);
     }
     else{
-      return this.http.get<FlashCadEndPointInterface>(`api/v1/users/${this.user_id}/flashcards/`);
+      return this.http.get<FlashCadEndPointInterface>(`api/v1/users/${user_id}/flashcards/`);
     }
 
   }

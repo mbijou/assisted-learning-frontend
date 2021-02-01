@@ -37,7 +37,8 @@ export class AllFlashCardsComponent implements OnInit {
   }
 
   getFlashcards(url=null){
-    this.flashCardService.getFlashCards(url).subscribe(
+    let user_id = localStorage.getItem("user_id");
+    this.flashCardService.getFlashCards(url, user_id).subscribe(
         data => {
           this.flashCardSetData = {"flashcards": []};
           let results = data.results;
