@@ -31,7 +31,7 @@ export class Dashboard3Component implements OnInit {
           this.flashcard.id = data[0].id;
           this.flashcard.question = data[0].question;
           this.flashcard.deadline = data[0].deadline;
-          this.flashcard.workload = data[0].workload;
+          this.flashcard.workload = data[0].workload
           this.flashcard.type = data[0].type;
           this.flashcard.object_id = data[0].object_id;
           this.flashcard.rank = data[0].rank;
